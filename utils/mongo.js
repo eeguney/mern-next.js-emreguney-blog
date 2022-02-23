@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-const MONGO_URL = "mongodb+srv://emreguney:Aknl0ofr.@cluster0.ipnad.mongodb.net/next?retryWrites=true&w=majority"
+const MONGO_URL = process.env.MONGO_URL
 
 if (!MONGO_URL) {
   throw new Error(
