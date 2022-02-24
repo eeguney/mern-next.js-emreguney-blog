@@ -22,7 +22,7 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      blogList: response.data,
+      blogList: response.data.slice(0,15),
       gitHub:  gitHub.data,
     },
   };

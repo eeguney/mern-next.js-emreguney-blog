@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
@@ -7,17 +6,6 @@ import { CommentsModal } from "../Main/CommentsModal/CommentsModal";
 
 export const Layout = ({ children }) => {
   const settings = useSelector((state) => state.settings);
-  const [displayChildren, setDisplayChildren] = useState(children);
-  const [transitionStage, setTransitionStage] = useState("fadeOutAndScale");
-
-  useEffect(() => {
-    setTransitionStage("fadeInAndScale");
-  }, []);
-
-  useEffect(() => {
-    if (children !== displayChildren) setTransitionStage("fadeOutAndScale");
-  }, [children, setDisplayChildren, displayChildren]);
-
   return (
     <div className="site-layout">
       <div className={`search-area ${settings.search ? "open" : ""}`}>
@@ -37,17 +25,12 @@ export const Layout = ({ children }) => {
       >
         <Header />
         <div
-          onTransitionEnd={() => {
-            if (transitionStage === "fadeOutAndScale") {
-              setDisplayChildren(children);
-              setTransitionStage("fadeInAndScale");
-            }
-          }}
-          className={`${transitionStage} ${
+         
+          className={` ${
             settings.drawer ? "pageContainerIsOpen" : ""
           } ${settings.search ? "searchIsOpen" : ""}`}
         >
-          {displayChildren}
+          {children}
         </div>
         <Footer />
       </div>

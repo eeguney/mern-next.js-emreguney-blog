@@ -180,9 +180,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -15px;
+  margin-top: 0;
   position: relative;
-  z-index: 889;
 }
 
 .aboutMe .profilePhoto {
@@ -349,7 +348,7 @@
   position: relative;
 }
 
-.postContext::after {
+/* .postContext::after {
   content: "";
   width: 70%;
   height: 2px;
@@ -360,7 +359,7 @@
   right: 0;
   bottom: 0;
   margin: auto;
-}
+} */
 
 .postContext h1,
 .postContext h2,
@@ -683,7 +682,10 @@
   display: flex;
   flex-direction: column;
   grid-gap: 45px;
+  grid-gap: 45px;
   gap: 45px;
+  padding-bottom: 100px;
+  border-bottom: 3px double #ccc;
 }
 
 .postShare {
