@@ -19,7 +19,6 @@ export default async function handler(req, res) {
   if (method === "POST") {
     let { title, excerpt, slug, category, text, tags, thumbnail, author } =
       req.body;
-      console.log(title)
     try {
       if (!title || !category || !text) {
         return res.status(400).json("Please fill in all fields.");

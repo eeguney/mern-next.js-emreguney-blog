@@ -160,4 +160,90 @@ export const Icon = {
       </svg>
     );
   },
+  Plus: ({ size }) => {
+    return (
+      <svg
+        width={size}
+        height={size}
+        xmlns="http://www.w3.org/2000/svg"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        viewBox="0 0 25 25"
+      >
+        <path d="M11 11v-11h1v11h11v1h-11v11h-1v-11h-11v-1h11z" />
+      </svg>
+    );
+  },
+  Error: ({ size }) => {
+    return (
+      <svg
+        width={size}
+        height={size}
+        xmlns="http://www.w3.org/2000/svg"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        viewBox="0 0 24 24"
+      >
+        <path d="M24 23h-24l12-22 12 22zm-22.315-1h20.63l-10.315-18.912-10.315 18.912zm10.315-2c.466 0 .845-.378.845-.845 0-.466-.379-.844-.845-.844-.466 0-.845.378-.845.844 0 .467.379.845.845.845zm.5-11v8h-1v-8h1z"/>
+      </svg>
+    );
+  },
+  Spinner: () => {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        style={{
+          margin: "auto",
+          background: "none",
+          display: "block",
+          shapeRendering: "auto",
+        }}
+        width="150px"
+        height="150px"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid"
+      >
+        <g transform="translate(0 -6.5)">
+          <circle cx="50" cy="42.2" r="10" fill="#346b21">
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              dur="1.5873015873015872s"
+              repeatCount="indefinite"
+              keyTimes="0;1"
+              values="0 50 50;360 50 50"
+            ></animateTransform>
+            <animate
+              attributeName="r"
+              dur="1.5873015873015872s"
+              repeatCount="indefinite"
+              calcMode="spline"
+              keyTimes="0;0.5;1"
+              values="0;13;0"
+              keySplines="0.2 0 0.8 1;0.2 0 0.8 1"
+            ></animate>
+          </circle>
+          <circle cx="50" cy="42.2" r="10" fill="#94d137">
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              dur="1.5873015873015872s"
+              repeatCount="indefinite"
+              keyTimes="0;1"
+              values="180 50 50;540 50 50"
+            ></animateTransform>
+            <animate
+              attributeName="r"
+              dur="1.5873015873015872s"
+              repeatCount="indefinite"
+              calcMode="spline"
+              keyTimes="0;0.5;1"
+              values="13;0;13"
+              keySplines="0.2 0 0.8 1;0.2 0 0.8 1"
+            ></animate>
+          </circle>
+        </g>
+      </svg>
+    );
+  },
 };

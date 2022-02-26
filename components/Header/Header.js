@@ -24,7 +24,7 @@ export const Header = () => {
           <span></span>
           <span></span>
         </button>
-        <button type="search" className={`${style.searchButton} likeRipple`}  onClick={() => {
+        <button type="button" className={`${style.searchButton} likeRipple`}  onClick={() => {
             dispatch(searchToggle());
           }}>
           <Icon.Search size="25" />

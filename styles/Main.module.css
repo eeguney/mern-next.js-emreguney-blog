@@ -258,10 +258,13 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-bottom: 100px;
 }
 
 .singlePost header {
   display: flex;
+  width: 100% !important;
+  transform: translate(0);
   flex-direction: column;
   margin-bottom: 15px;
 }
@@ -861,7 +864,23 @@
 .commentsSection .addComment {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  grid-gap: 15px;
+  gap: 25px;
+}
+
+.addComment .textareaArea {
+  position: relative;
+}
+
+.textareaArea span {
+  position: absolute;
+  right: 17px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 22px;
+  fill: red;
+  cursor: pointer;
 }
 
 .addComment textarea {
@@ -871,6 +890,7 @@
   border-radius: 15px;
   resize: none;
   background: white;
+  width: 100%;
 }
 
 .addComment .submitComment {
@@ -890,23 +910,18 @@
 .comments ul {
   display: flex;
   flex-direction: column;
-  grid-gap: 25px;
-  gap: 25px;
 }
 
 .comments ul li {
   display: flex;
   flex-direction: column;
-  grid-gap: 25px;
-  grid-gap: 25px;
-  gap: 25px;
   padding: 20px 0;
-  border-bottom: 1px solid #0000001a;
 }
 
 .comments .commentItem {
   gap: 25px;
   display: flex;
+  align-items: center;
 }
 
 .comments ul li .userInfo {
@@ -1074,7 +1089,7 @@
   margin: auto;
   padding: 25px 0;
   padding-bottom: 0;
-  height: calc(100% - 150px);
+  max-height: calc(100% - 150px);
   background: #ffffffa6;
   z-index: 999;
   border-radius: 15px;
@@ -1143,4 +1158,157 @@
   backdrop-filter: blur(30px);
   fill: white;
   box-shadow: 0px 0px 53px 6px rgb(0 0 0 / 29%);
+}
+
+.loadedPosts {
+}
+
+.loadedPost {
+}
+
+.loadingSpinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingSpinner label {
+  font-size: 16px;
+  font-weight: 200;
+  margin-top: -25px;
+  color: #a3a3a3;
+  padding-left: 10px;
+}
+
+.commentRow {
+  display: flex;
+  gap: 25px;
+}
+
+.commentRow div {
+  position: relative;
+}
+
+.commentRow .error {
+  position: absolute;
+  right: 17px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 22px;
+  fill: red;
+  cursor: pointer;
+  z-index: 9;
+}
+
+.commentRow .error:hover,
+.textareaArea .error:hover {
+  filter: drop-shadow(0px 0px 12px red);
+}
+
+.commentRow .error:hover::after,
+.textareaArea .error:hover::after {
+  content: attr(data-error);
+  width: 100px;
+  position: absolute;
+  font-size: 11px;
+  top: 30px;
+  left: -40px;
+  padding: 5px 0;
+  text-align: center;
+  background: red;
+  color: white;
+  border-radius: 5px;
+  z-index: 100;
+}
+
+.commentRow .fullname {
+  width: 300px;
+  display: flex;
+  gap: 15px;
+}
+
+.commentRow .email {
+  flex: 1;
+  display: flex;
+  gap: 15px;
+}
+
+.commentRow input {
+  flex: 1;
+  height: 50px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.addComment .dropdownImage {
+  display: flex;
+  gap: 15px;
+}
+
+.dropdownImage .imageArea {
+  flex: 1;
+}
+
+.dropdownImage .imageArea input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.dropdownImage button {
+  display: flex;
+  padding: 10px 20px;
+  background: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 12px;
+  align-items: center;
+}
+
+.dropdownImage button:hover {
+  background: #e6e6e6;
+}
+
+.commentWithParent {
+  display: flex;
+  grid-gap: 25px;
+  gap: 25px;
+  flex-direction: column;
+}
+
+.commentWithParent .dropdownImage {
+  display: flex;
+  gap: 15px;
+  position: absolute;
+  top: 105px;
+  left: 10px;
+}
+
+.commentWithParent .textareaArea {
+  position: relative;
+}
+
+.commentWithParent textarea {
+  border-radius: 15px;
+  height: 155px;
+  padding: 15px 15px 55px 15px;
+  border: 1px solid #ccc;
+  resize: none;
+  width: 100%;
+}
+
+.commentWithParent .submit {
+  border: none;
+  fill: #2196f3;
+  background: transparent;
+  position: absolute;
+  right: 15px;
+  top: 115px;
 }

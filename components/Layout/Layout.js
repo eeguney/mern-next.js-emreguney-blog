@@ -25,16 +25,19 @@ export const Layout = ({ children }) => {
       >
         <Header />
         <div
-         
-          className={` ${
-            settings.drawer ? "pageContainerIsOpen" : ""
-          } ${settings.search ? "searchIsOpen" : ""}`}
+          className={` ${settings.drawer ? "pageContainerIsOpen" : ""} ${
+            settings.search ? "searchIsOpen" : ""
+          }`}
         >
           {children}
         </div>
         <Footer />
       </div>
-      {settings.comments.status && <CommentsModal />}
+      {settings.comments.status && (
+        <div className="commentBackDrop">
+          <CommentsModal postID={settings.comments.postID} />
+        </div>
+      )}
     </div>
   );
 };

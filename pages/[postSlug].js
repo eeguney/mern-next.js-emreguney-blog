@@ -1,23 +1,31 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import parse from "html-react-parser";
-import { toggleComment } from "../store/settingsSlice";
+import { setCommentCount, toggleComment } from "../store/settingsSlice";
 import { Icon } from "../components/UI/Icon";
-import { getAPostBySlug, nextPost, prevPost } from "../components/api";
+import {
+  getAPostBySlug,
+  getCountofComment,
+  nextPost,
+  prevPost,
+} from "../components/api";
 import style from "./../styles/Main.module.css";
 import { useRouter } from "next/router";
+import { ScrollFetch } from "../components/Main/ScrollFetch/ScrollFetch";
 
 export default function SinglePost({ post, prev, next }) {
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useDispatch();
+  const settings = useSelector((state) => state.settings);
   const [initialprevNext, setinitialprevNext] = useState({
     prevPost: prev ? prev : [],
     nextPost: next ? next : [],
   });
   const [currentPost, setcurrentPost] = useState(post);
   const [loadedPost, setloadedPost] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setinitialprevNext({ ...initialprevNext, prevPost: prev, nextPost: next });
@@ -28,6 +36,14 @@ export default function SinglePost({ post, prev, next }) {
     return () => window.removeEventListener("scroll", infiniteScroll);
   }, [currentPost]);
 
+  useEffect(() => {
+    const getCountofComments = async () => {
+      const count = await getCountofComment(post._id);
+      dispatch(setCommentCount(count.count));
+    };
+    getCountofComments();
+  }, []);
+
   const infiniteScroll = async () => {
     if (
       window.innerHeight + document.documentElement.scrollTop !==
@@ -36,6 +52,7 @@ export default function SinglePost({ post, prev, next }) {
       return;
     } else {
       const ID = currentPost._id;
+      setLoading(true);
       const findNextPost = await nextPost(ID);
       if (findNextPost.data[0] && loadedPost.length < 9) {
         const newPost = await getAPostBySlug(findNextPost.data[0].slug);
@@ -43,8 +60,8 @@ export default function SinglePost({ post, prev, next }) {
           setcurrentPost(newPost.data);
           const joined = loadedPost.concat(newPost.data);
           setloadedPost(joined);
-          router.push('/'+newPost.data.slug, undefined, { shallow: true })
-     
+          router.push("/" + newPost.data.slug, undefined, { shallow: true });
+          setLoading(false);
         }, 1000);
       } else {
         return;
@@ -158,11 +175,23 @@ export default function SinglePost({ post, prev, next }) {
                   <h3>Comments</h3>
                   <div className={style.right}>
                     <span>
-                      There is <strong>5</strong> comments
+                      {settings.count === 1 ? (
+                        <>
+                          There is <strong>1</strong> comment
+                        </>
+                      ) : settings.count > 1 ? (
+                        <>
+                          There are <strong>${settings.count}</strong> comments
+                        </>
+                      ) : (
+                        <>
+                          There is <strong>no</strong> comment
+                        </>
+                      )}
                     </span>
                     <button
                       type="button"
-                      onClick={() => dispatch(toggleComment())}
+                      onClick={() => {dispatch(toggleComment(post._id));router.push(router.asPath+"#comments", undefined, { shallow: true })}}
                       className={style.seeAllComments}
                     >
                       SEE ALL
@@ -173,7 +202,7 @@ export default function SinglePost({ post, prev, next }) {
                   <div className={style.addComment}>
                     <textarea
                       placeholder="Leave a comment..."
-                      onClick={() => dispatch(toggleComment())}
+                      onClick={() => {dispatch(toggleComment(post._id));router.push(router.asPath+"#comments", undefined, { shallow: true })}}
                     />
                     <button type="button" className={style.submitComment}>
                       <Icon.SubmitIcon size="24" />
@@ -182,120 +211,19 @@ export default function SinglePost({ post, prev, next }) {
                 </div>
               </section>
             </div>
+
+            {/* infinite scroll */}
             <div className={style.loadedPosts}>
-            {loadedPost.map((item) => (
-              <div className={style.loadedPost}>
-                <header>
-                  <h2>{item.title}</h2>
-                  <div className={style.postDesc}>
-                    <div className={style.postDescItem}>
-                      <label>Author:</label>
-                      <span>
-                        <Link href="">
-                          <a>Emre Güney</a>
-                        </Link>
-                      </span>
-                    </div>
-                    <div className={style.postDescItem}>
-                      <label>Date:</label>
-                      <span>2 days ago</span>
-                    </div>
-                    <div className={style.postDescItem}>
-                      <label>Comments:</label>
-                      <span>14</span>
-                    </div>
-                  </div>
-                  <div className={style.thumbnail}>
-                    <img src={item.thumbnail} alt={item.title} />
-                  </div>
-                </header>
-                <div className={style.postContextWrapper}>
-                  <section className={style.postContext}>
-                    {parse(item.text)}
-                  </section>
-                  <section className={style.postShare}>
-                    <label>Share this!</label>
-                    <div className={style.items}>
-                      <div className={style.item}>
-                        <Icon.Twitter size="40" />
-                      </div>
-                      <div className={style.item}>
-                        <Icon.GitHub size="40" />
-                      </div>
-                      <div className={style.item}>
-                        <Icon.Email size="40" />
-                      </div>
-                    </div>
-                  </section>
-                  <section className={style.nextPrev}>
-                    {initialprevNext.prevPost.length > 0 && (
-                      <div className={style.prev}>
-                        <Link href={`/${initialprevNext.prevPost[0].slug}`}>
-                          <a>
-                            <label>
-                              <Icon.LeftArrow size="24" /> Older Post
-                            </label>
-                            <div className={style.content}>
-                              <img
-                                src={initialprevNext.prevPost[0].thumbnail}
-                                alt={initialprevNext.prevPost[0].title}
-                              />
-                              <h3>{initialprevNext.prevPost[0].title}</h3>
-                            </div>
-                          </a>
-                        </Link>
-                      </div>
-                    )}
-                    {initialprevNext.nextPost.length > 0 && (
-                      <div className={style.next}>
-                        <Link href={`/${initialprevNext.nextPost[0].slug}`}>
-                          <a>
-                            <label>
-                              Newer Post <Icon.RightArrow size="24" />
-                            </label>
-                            <div className={style.content}>
-                              <h3>{initialprevNext.nextPost[0].title}</h3>
-                              <img
-                                src={initialprevNext.nextPost[0].thumbnail}
-                                alt={initialprevNext.nextPost[0].title}
-                              />
-                            </div>
-                          </a>
-                        </Link>
-                      </div>
-                    )}
-                  </section>
-                  <section className={`${style.commentsSection} `}>
-                    <label>
-                      <h3>Comments</h3>
-                      <div className={style.right}>
-                        <span>
-                          There is <strong>5</strong> comments
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => dispatch(toggleComment())}
-                          className={style.seeAllComments}
-                        >
-                          SEE ALL
-                        </button>
-                      </div>
-                    </label>
-                    <div className={style.commentsWrapper}>
-                      <div className={style.addComment}>
-                        <textarea
-                          placeholder="Leave a comment..."
-                          onClick={() => dispatch(toggleComment())}
-                        />
-                        <button type="button" className={style.submitComment}>
-                          <Icon.SubmitIcon size="24" />
-                        </button>
-                      </div>
-                    </div>
-                  </section>
+              {loadedPost.map((post, index) => (
+                <ScrollFetch key={index} post={post} />
+              ))}
+              {/* loading spinner */}
+              {loading && (
+                <div className={style.loadingSpinner}>
+                  <Icon.Spinner />
+                  <label>Loading...</label>
                 </div>
-              </div>
-            ))}
+              )}
             </div>
           </div>
         </div>

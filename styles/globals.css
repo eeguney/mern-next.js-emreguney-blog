@@ -79,25 +79,38 @@ textarea:focus {
   transform: translateY(100px);
 }
 
-.pageContainerIsOpen {
-  transform: translateX(400px) !important;
-  overflow: hidden;
-  height: 100vh;
+.pageContainerIsOpen header {
+  width: calc(100% - 400px) !important;
+  transform: translateX(400px);
 }
 
+.pageContainerIsOpen article header {
+  width: initial !important;
+  transform: translateX(0);
+}
+
+/* .commentBackDrop {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background: #fff;
+  z-index: 999;
+  backdrop-filter: blur(11px);
+} */
+
 @media screen and (min-width: 1280px) {
-  .pageContainerIsOpen {
-    width: calc(100% - 400px);
-    display: flex;
-    align-items: flex-end;
-    flex-direction: column;
-  }
 }
 
 @media screen and (max-width: 768px) {
-  .pageContainerIsOpen {
-    width: calc(100% - 80px);
-    transform: translateX(calc(100%)) !important;
+  .pageContainerIsOpen header {
+    width: inherit !important;
+    transform: translateX(0);
+    overflow: hidden;
+  }
+  .pageContainerIsOpen header nav {
+    transform: translateX(calc(100% - 35px));
   }
 }
 

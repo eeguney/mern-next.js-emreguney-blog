@@ -6,7 +6,10 @@ const settingSlice = createSlice({
     drawer: false,
     search: false,
     comments: {
-      status: false
+      data: [],
+      status: false,
+      postID: 0,
+      count: 0
     }
   },
   reducers: {
@@ -18,8 +21,18 @@ const settingSlice = createSlice({
       state.drawer = false
       state.search = !state.search;
     },
-    toggleComment: (state) => {
+    toggleComment: (state, action) => {
       state.comments.status = !state.comments.status
+      state.comments.postID = action.payload
+    },
+    setCommentData: (state, action) => {
+      state.comments.data = action.payload
+    },
+    addCommentData: (state, action) => {
+      state.comments.data.push(action.payload)
+    },
+    setCommentCount: (state, action) => {
+      state.comments.count = action.payload
     },
     reset: (state) => {
       state.drawer = false;
@@ -28,5 +41,5 @@ const settingSlice = createSlice({
   },
 });
 
-export const { drawerToggle, searchToggle, toggleComment, reset } = settingSlice.actions;
+export const { drawerToggle, searchToggle, setCommentData, addCommentData, setCommentCount, toggleComment, reset } = settingSlice.actions;
 export default settingSlice.reducer;
