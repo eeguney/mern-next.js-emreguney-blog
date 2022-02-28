@@ -14,8 +14,9 @@ import {
 import style from "./../styles/Main.module.css";
 import { useRouter } from "next/router";
 import { ScrollFetch } from "../components/Main/ScrollFetch/ScrollFetch";
+import dateShow from "../utils/dateShow";
 
-export default function SinglePost({ post, prev, next }) {
+export default function SinglePost({ post, prev, next, commentCount }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const settings = useSelector((state) => state.settings);
@@ -37,12 +38,11 @@ export default function SinglePost({ post, prev, next }) {
   }, [currentPost]);
 
   useEffect(() => {
-    const getCountofComments = async () => {
-      const count = await getCountofComment(post._id);
-      dispatch(setCommentCount(count.count));
+    const getCountofComments = () => {
+      dispatch(setCommentCount(settings.comments.data.length || commentCount));
     };
     getCountofComments();
-  }, []);
+  }, [settings.comments.data]);
 
   const infiniteScroll = async () => {
     if (
@@ -69,6 +69,9 @@ export default function SinglePost({ post, prev, next }) {
     }
   };
 
+  const date = Math.ceil(
+    Math.abs(new Date(post.createdAt) - new Date()) / (1000 * 60 * 60 * 24)
+  );
   return (
     <>
       <Head>
@@ -103,11 +106,11 @@ export default function SinglePost({ post, prev, next }) {
                 </div>
                 <div className={style.postDescItem}>
                   <label>Date:</label>
-                  <span>2 days ago</span>
+                  <span>{dateShow(date)}</span>
                 </div>
                 <div className={style.postDescItem}>
                   <label>Comments:</label>
-                  <span>14</span>
+                  <span>{settings.comments.count}</span>
                 </div>
               </div>
               <div className={style.thumbnail}>
@@ -135,7 +138,7 @@ export default function SinglePost({ post, prev, next }) {
               <section className={style.nextPrev}>
                 {initialprevNext.prevPost.length > 0 && (
                   <div className={style.prev}>
-                    <Link href={`/${initialprevNext.prevPost[0].slug}`}>
+                    <Link href={`/${initialprevNext.prevPost[0].slug}`} replace>
                       <a>
                         <label>
                           <Icon.LeftArrow size="24" /> Older Post
@@ -153,7 +156,7 @@ export default function SinglePost({ post, prev, next }) {
                 )}
                 {initialprevNext.nextPost.length > 0 && (
                   <div className={style.next}>
-                    <Link href={`/${initialprevNext.nextPost[0].slug}`}>
+                    <Link href={`/${initialprevNext.nextPost[0].slug}`} replace>
                       <a>
                         <label>
                           Newer Post <Icon.RightArrow size="24" />
@@ -175,13 +178,14 @@ export default function SinglePost({ post, prev, next }) {
                   <h3>Comments</h3>
                   <div className={style.right}>
                     <span>
-                      {settings.count === 1 ? (
+                      {settings.comments.count === 1 ? (
                         <>
                           There is <strong>1</strong> comment
                         </>
-                      ) : settings.count > 1 ? (
+                      ) : settings.comments.count > 1 ? (
                         <>
-                          There are <strong>${settings.count}</strong> comments
+                          There are <strong>{settings.comments.count}</strong>{" "}
+                          comments
                         </>
                       ) : (
                         <>
@@ -191,7 +195,12 @@ export default function SinglePost({ post, prev, next }) {
                     </span>
                     <button
                       type="button"
-                      onClick={() => {dispatch(toggleComment(post._id));router.push(router.asPath+"#comments", undefined, { shallow: true })}}
+                      onClick={() => {
+                        dispatch(toggleComment(post._id));
+                        router.push(router.asPath + "#comments", undefined, {
+                          shallow: true,
+                        });
+                      }}
                       className={style.seeAllComments}
                     >
                       SEE ALL
@@ -202,7 +211,12 @@ export default function SinglePost({ post, prev, next }) {
                   <div className={style.addComment}>
                     <textarea
                       placeholder="Leave a comment..."
-                      onClick={() => {dispatch(toggleComment(post._id));router.push(router.asPath+"#comments", undefined, { shallow: true })}}
+                      onClick={() => {
+                        dispatch(toggleComment(post._id));
+                        router.push(router.asPath + "#comments", undefined, {
+                          shallow: true,
+                        });
+                      }}
                     />
                     <button type="button" className={style.submitComment}>
                       <Icon.SubmitIcon size="24" />
@@ -234,6 +248,7 @@ export default function SinglePost({ post, prev, next }) {
 
 export const getServerSideProps = async ({ params }) => {
   const post = await getAPostBySlug(params.postSlug);
+  const commentCount = await getCountofComment(post.data._id);
   const prev = await prevPost(post.data._id);
   const next = await nextPost(post.data._id);
   return {
@@ -241,6 +256,7 @@ export const getServerSideProps = async ({ params }) => {
       post: post.data,
       prev: prev.data,
       next: next.data,
+      commentCount: commentCount.data.count,
     },
   };
 };

@@ -279,16 +279,11 @@
 
 .singlePost .breadcrumb a {
   font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  text-decoration-thickness: 2px;
-  text-decoration-color: #ffffff;
 }
 
 .singlePost .breadcrumb a:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-decoration-color: #d11919;
+  color: #d11919;
+
 }
 
 .singlePost .breadcrumb span {

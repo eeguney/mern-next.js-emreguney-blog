@@ -214,3 +214,16 @@ textarea:focus {
     transform: scale(0.5);
   }
 }
+
+.reading-percentage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  background: #2196f3;
+  z-index: 9999999;
+  height: 5px;
+  border-radius: 999px;
+  box-shadow: 5px 0px 21px 7px #2196f340;
+  transition: all 0.4s ease;
+}

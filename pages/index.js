@@ -1,4 +1,3 @@
-import axios from "axios";
 import Head from "next/head";
 import { getAllPost, getGitHub } from "../components/api";
 import { Main } from "./../components/Main/Main";
@@ -11,7 +10,7 @@ export default function Home({ blogList, gitHub }) {
         <meta name="description" content="Frontend developer" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Main blogList={blogList} gitHub={gitHub} />
+      <Main page={1} blogList={blogList} gitHub={gitHub} />
     </>
   );
 }

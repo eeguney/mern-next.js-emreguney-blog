@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { useSelector } from "react-redux"
 import style from "../../styles/Main.module.css";
 import { Icon } from "../UI/Icon";
 import { AboutMe } from "./AboutMe";
 import { FastLinks } from "./FastLinks";
 import { Posts } from "./Posts/Posts";
 
-export const Main = ({ blogList }) => {
+export const Main = ({ page, blogList, totalCount }) => {
   return (
     <div id={style.main}>
 
@@ -23,7 +22,7 @@ export const Main = ({ blogList }) => {
           </Link>
         </div>
 
-        <Posts blogList={blogList} style={style} />
+        <Posts page={page} blogList={blogList} totalCount={totalCount} style={style} />
 
       </div>
     </div>

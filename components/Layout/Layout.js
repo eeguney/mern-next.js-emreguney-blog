@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
@@ -5,7 +7,23 @@ import { Aside } from "../Main/Aside/Aside";
 import { CommentsModal } from "../Main/CommentsModal/CommentsModal";
 
 export const Layout = ({ children }) => {
+  const router = useRouter();
   const settings = useSelector((state) => state.settings);
+  const [percentage, setPercentage] = useState(0)
+  
+  useEffect(() => {
+    window.addEventListener("scroll", percentageCalculate);
+    percentageCalculate()
+  }, []);
+
+  const percentageCalculate = async () => {
+    setPercentage(
+      (document.documentElement.scrollTop) /
+        (document.documentElement.offsetHeight - window.innerHeight - 200) *
+        100
+    );
+  };
+
   return (
     <div className="site-layout">
       <div className={`search-area ${settings.search ? "open" : ""}`}>
@@ -37,6 +55,9 @@ export const Layout = ({ children }) => {
         <div className="commentBackDrop">
           <CommentsModal postID={settings.comments.postID} />
         </div>
+      )}
+      {router.pathname === "/[postSlug]" && (
+        <div className="reading-percentage" style={{ "width": percentage+"%" }} />
       )}
     </div>
   );

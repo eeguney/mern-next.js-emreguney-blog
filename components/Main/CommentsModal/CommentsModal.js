@@ -10,8 +10,10 @@ import {
 import style from "../../../styles/Main.module.css";
 import { addComment, fetchCommentByPostID } from "../../api";
 import { Icon } from "../../UI/Icon";
+import Fade from "react-reveal/Fade";
 import { useRouter } from "next/router";
 import { CommentsForm } from "./CommentsForm";
+import dateShow from "../../../utils/dateShow";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("Reqired").email("Invalid"),
@@ -40,46 +42,52 @@ export const CommentsModal = ({ postID }) => {
     getComments();
   }, []);
   const CommentLi = ({ data, children, last }) => {
-  const [addCommentToComment, setaddCommentToComment] = useState(false);
-
+    const [addCommentToComment, setaddCommentToComment] = useState(false);
+    const date = Math.ceil(
+      Math.abs(new Date(data.createdAt) - new Date()) / (1000 * 60 * 60 * 24)
+    );
     return (
-      <li>
-        <div className={style.commentItem}>
-          <div className={style.userInfo}>
-            <img src={data.imageUrl} alt={data.fullname} />
-            <span className={style.name}>{data.fullname}</span>
-          </div>
-          <div className={style.comment}>
-            <div className={style.meta}>
-              <span>2 hours ago</span>
-              <span>
-                <Icon.Like size="15" />0
-              </span>
-              <span>
-                <Icon.SubmitIcon size="15" />0
-              </span>
+      <Fade duration={400}>
+        <li>
+          <div className={style.commentItem}>
+            <div className={style.userInfo}>
+              <img src={data.imageUrl} alt={data.fullname} />
+              <span className={style.name}>{data.fullname}</span>
             </div>
-            <p>{data.comment}</p>
-            <div className={style.controller}>
-              <button type="button">
-                <Icon.Like size="15" />
-                Like
-              </button>
-              {!last && (
-                <button
-                  type="button"
-                  onClick={() => setaddCommentToComment(!addCommentToComment)}
-                >
-                  <Icon.SubmitIcon size="15" />
-                  Comment
+            <div className={style.comment}>
+              <div className={style.meta}>
+                <span>{dateShow(date)}</span>
+                <span>
+                  <Icon.Like size="15" />0
+                </span>
+                <span>
+                  <Icon.SubmitIcon size="15" />0
+                </span>
+              </div>
+              <p>{data.comment}</p>
+              <div className={style.controller}>
+                <button type="button">
+                  <Icon.Like size="15" />
+                  Like
                 </button>
+                {!last && (
+                  <button
+                    type="button"
+                    onClick={() => setaddCommentToComment(!addCommentToComment)}
+                  >
+                    <Icon.SubmitIcon size="15" />
+                    Comment
+                  </button>
+                )}
+              </div>
+              {addCommentToComment && (
+                <CommentsForm data={data} children={children} last={last} />
               )}
             </div>
-            {addCommentToComment && <CommentsForm  data={data} children={children} last={last} /> }
           </div>
-        </div>
-        {children}
-      </li>
+          {children}
+        </li>
+      </Fade>
     );
   };
 
@@ -107,7 +115,7 @@ export const CommentsModal = ({ postID }) => {
               </>
             ) : comments.count > 1 ? (
               <>
-                There are <strong>${comments.count}</strong> comments
+                There are <strong>{comments.count}</strong> comments
               </>
             ) : (
               <>
@@ -219,21 +227,22 @@ export const CommentsModal = ({ postID }) => {
               {comments.data
                 .filter((item) => item.parentID === null)
                 .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                .map((comment) => (
+                .map((comment, index) => (
                   <>
-                    <CommentLi data={comment}>
+                    <CommentLi key={index} data={comment}>
                       {comments.data
                         .filter((item) => item.parentID === comment._id)
-                        .map((childComment) => (
+                        .map((childComment, index) => (
                           <ul>
-                            <CommentLi data={childComment}>
+                            <CommentLi key={index} data={childComment}>
                               {comments.data
                                 .filter(
                                   (item) => item.parentID === childComment._id
                                 )
-                                .map((child2Comment) => (
+                                .map((child2Comment, index) => (
                                   <ul>
                                     <CommentLi
+                                      key={index}
                                       data={child2Comment}
                                       last={true}
                                     />
