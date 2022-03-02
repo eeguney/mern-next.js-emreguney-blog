@@ -156,7 +156,7 @@ export default function SinglePost({ post, prev, next, commentCount }) {
                 )}
                 {initialprevNext.nextPost.length > 0 && (
                   <div className={style.next}>
-                    <Link href={`/${initialprevNext.nextPost[0].slug}`} replace>
+                    <Link href={`/${initialprevNext.nextPost[0].slug}`}>
                       <a>
                         <label>
                           Newer Post <Icon.RightArrow size="24" />
@@ -247,16 +247,25 @@ export default function SinglePost({ post, prev, next, commentCount }) {
 }
 
 export const getServerSideProps = async ({ params }) => {
-  const post = await getAPostBySlug(params.postSlug);
-  const commentCount = await getCountofComment(post.data._id);
-  const prev = await prevPost(post.data._id);
-  const next = await nextPost(post.data._id);
-  return {
-    props: {
-      post: post.data,
-      prev: prev.data,
-      next: next.data,
-      commentCount: commentCount.data.count,
-    },
-  };
+  try {
+    const post = await getAPostBySlug(params.postSlug);
+    const commentCount = await getCountofComment(post.data._id);
+    const prev = await prevPost(post.data._id);
+    const next = await nextPost(post.data._id);
+    return {
+      props: {
+        post: post.data,
+        prev: prev.data,
+        next: next.data,
+        commentCount: commentCount.data.count,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 };

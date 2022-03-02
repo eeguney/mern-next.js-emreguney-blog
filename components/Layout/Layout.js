@@ -6,7 +6,7 @@ import { Header } from "../Header/Header";
 import { Aside } from "../Main/Aside/Aside";
 import { CommentsModal } from "../Main/CommentsModal/CommentsModal";
 
-export const Layout = ({ children }) => {
+export const Layout = ({ children, gitHub, repo }) => {
   const router = useRouter();
   const settings = useSelector((state) => state.settings);
   const [percentage, setPercentage] = useState(0)
@@ -35,7 +35,7 @@ export const Layout = ({ children }) => {
           spellCheck="false"
         />
       </div>
-      <Aside toggle={settings.drawer} />
+      <Aside toggle={settings.drawer} gitHub={gitHub} repo={repo} />
       <div
         className={`page-container ${
           settings.drawer ? "pageContainerIsOpen" : ""

@@ -5,8 +5,11 @@ import mongoose from "mongoose";
 export default async function handler(req, res) {
   const {
     method,
+    cookies,
     query: { postID },
   } = req;
+
+  const token = cookies.token;
 
   dbConnect();
 
@@ -21,6 +24,9 @@ export default async function handler(req, res) {
 
   if (method === "POST") {
     let { parentID, email, fullname, imageUrl, comment } = req.body;
+    if (!token || token !== process.env.token) {
+      return res.status(401).json("Not authenticated!");
+    }
     try {
       if (!postID || !email || !fullname || !comment) {
         return res.status(400).json("Please fill in all fields.");
@@ -40,5 +46,4 @@ export default async function handler(req, res) {
       return res.status(500).json("Something went wrong");
     }
   }
-
 }

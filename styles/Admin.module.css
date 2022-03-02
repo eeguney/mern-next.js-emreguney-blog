@@ -1,0 +1,349 @@
+#main {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 1024px) {
+  #main {
+    align-items: center;
+  }
+}
+
+#main .container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 0 20px;
+  border-radius: 15px;
+}
+
+@media screen and (min-width: 1024px) {
+  #main .container {
+    width: 1024px;
+  }
+}
+
+#main .container .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+#main .container .title h3 {
+  font-size: 28px;
+  font-weight: 200;
+  color: #000000;
+  margin: 0;
+  flex: 1 1;
+  padding-left: 45px;
+  text-align: center;
+}
+
+#main .container .title .seeAll {
+  fill: #d5d5d5;
+}
+
+#main .container .title .seeAll:hover {
+  fill: #c0c0c0;
+}
+
+.blogContainer {
+  transition: all 0.4s linear;
+}
+
+.singlePost {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 100px;
+}
+
+.singlePost header {
+  display: flex;
+  width: 100% !important;
+  transform: translate(0);
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.singlePost .breadcrumb {
+  display: flex;
+  grid-gap: 15px;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+.singlePost .breadcrumb a {
+  font-weight: 600;
+}
+
+.singlePost .breadcrumb a:hover {
+  color: #d11919;
+}
+
+.singlePost .breadcrumb span {
+  display: inline-flex;
+  padding-top: 1px;
+}
+
+.singlePost header h2 {
+  font-size: 55px;
+  font-weight: 200;
+  line-height: 65px;
+  text-align: center;
+  margin: 55px 0 25px 0;
+  cursor: default;
+}
+
+.adminLinks ul {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+@media screen and (max-width: 768px) {
+  .adminLinks ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.adminLinks ul > li {
+  flex: 1;
+}
+.adminLinks ul > li > button {
+  font-size: 15px;
+  font-weight: 700;
+  background: black;
+  padding: 15px 0;
+  border-radius: 15px;
+  text-align: center;
+  border: none;
+  color: white;
+  width: 100%;
+}
+
+.adminLinks ul > li > button.active {
+  background: #03a9f4;
+}
+
+.tab {
+  padding: 30px 0;
+  border-top: 1px solid #e7e7e7;
+  margin-top: 15px;
+}
+
+.bottomLinks {
+  display: flex;
+  grid-gap: 10px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.bottomLinks label {
+  font-weight: 200;
+  font-size: 19px;
+  margin-right: 15px;
+}
+
+.bottomLinks button {
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 7px 10px;
+  border-radius: 5px;
+}
+
+.bottomLinks .active {
+  background: black;
+  color: white;
+  border-color: black;
+}
+
+.tab .tabItem h2 {
+  font-size: 35px;
+  font-weight: 200;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.tabItem .grid {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.grid section .item {
+  padding: 0;
+  border: none;
+}
+
+.grid header,
+.grid section .item {
+  display: grid;
+  grid-template-columns: auto 200px 200px 70px 130px 130px;
+  text-align: center;
+  margin-bottom: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.gridCategory header,
+.gridCategory section .item {
+  grid-template-columns: auto 200px 130px;
+}
+
+.grid section .item:last-child {
+  border: none;
+}
+
+.grid section .item div:last-child {
+  border: none;
+}
+
+.grid header {
+  background: #f1f1f1;
+  color: black;
+  align-items: center;
+}
+
+.grid header div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid header div:first-child,
+.grid section .item div:first-child {
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.grid header div,
+.grid section div {
+  border-right: 1px solid #ccc;
+  padding: 10px 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formItem label {
+  font-size: 17px;
+  font-weight: 300;
+}
+
+.formItem input,
+.formColumnItem input {
+  height: 60px;
+  padding: 0 15px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.formColumnItem input {
+  flex: 1;
+}
+
+.DraftEditor-root {
+  position: relative;
+  height: 300px;
+}
+
+.wrapper-class {
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+.editor-class {
+  background-color: lightgray;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+.toolbar-class {
+  border: 1px solid #ccc;
+}
+
+.formColumnItem {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.formColumnItem label {
+  font-size: 17px;
+  font-weight: 300;
+}
+
+.formColumnItem .slugInput {
+  height: 40px;
+  border: none;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.slugInput:focus {
+  background-color: #f8f8f8;
+}
+
+.formColumnItem .item {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.formColumnItem .item label {
+  font-size: 17px;
+  font-weight: 300;
+}
+
+.categorySelect {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 15px;
+  gap: 15px;
+  position: relative;
+}
+ .categorySelect button {
+  height: 45px;
+  border: 1px solid #000000;
+  background: #000000;
+  border-radius: 10px;
+  color: #cbcbcb;
+  width: 250px;
+}
+
+.categorySelect .dropdown {
+  display: grid;
+  grid-gap: 5px;
+  gap: 5px;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: calc(100% + 30px);
+  overflow: hidden;
+  z-index: 9;
+}
+
+.categorySelect .hidden {
+  max-height: 0;
+  opacity: 0;
+}
+
+.categorySelect .active {
+  max-height: 250px;
+  opacity: 1;
+  overflow: auto;
+}

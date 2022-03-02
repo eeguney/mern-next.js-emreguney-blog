@@ -1,0 +1,64 @@
+import Head from "next/head";
+import { useRouter } from "next/router";
+import style from "../../styles/Main.module.css";
+import parse from "html-react-parser";
+import { getAPageBySlug } from "../../components/api";
+import Link from "next/link";
+import { Icon } from "../../components/UI/Icon";
+
+export default function SinglePage({ page }) {
+  const router = useRouter();
+
+  return (
+    <>
+      <Head>
+        <title>{page.title} - Emre Güney Personal Blog</title>
+        <meta name="description" content="Frontend developer" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div id={style.main}>
+        <div className={style.container}>
+          <div className={style.singlePost}>
+            <header>
+              <div className={style.breadcrumb}>
+                <Link href="/">
+                  <a>Mainpage</a>
+                </Link>
+                <span>
+                  <Icon.RightArrow size="19" />
+                </span>
+                <Link href={`/pages/${router.query.pageSlug}`}>
+                  <a>{page.title}</a>
+                </Link>
+              </div>
+              <h2>{page.title}</h2>
+            </header>
+            <div className={style.postContextWrapper}>
+              <section className={style.postContext}>
+                {parse(page.text)}
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export const getServerSideProps = async ({ params }) => {
+  try {
+    const page = await getAPageBySlug(params.pageSlug);
+    return {
+      props: {
+        page: page.data,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+};

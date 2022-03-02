@@ -13,21 +13,37 @@ export default function Page({ blogList, gitHub, totalCount }) {
         <meta name="description" content="Frontend developer" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Main page={Number(router.query.page)} blogList={blogList} gitHub={gitHub} totalCount={totalCount} />
+      <Main
+        page={Number(router.query.page)}
+        blogList={blogList}
+        gitHub={gitHub}
+        totalCount={totalCount}
+      />
     </>
   );
 }
 
-export const getServerSideProps = async ({  query }) => {
+export const getServerSideProps = async ({ query }) => {
+  try {
     const response = await getAllPost();
     const gitHub = await getGitHub();
     const totalCount = await getCountofPosts();
-  return {
-    props: {
-      blogList: response.data.slice(Number(query.page) * ITEM_PER_PAGE -
-        ITEM_PER_PAGE, Number(query.page) * ITEM_PER_PAGE),
-      gitHub: gitHub.data,
-      totalCount: totalCount.data.count
-    },
-  };
+    return {
+      props: {
+        blogList: response.data.slice(
+          Number(query.page) * ITEM_PER_PAGE - ITEM_PER_PAGE,
+          Number(query.page) * ITEM_PER_PAGE
+        ),
+        gitHub: gitHub.data,
+        totalCount: totalCount.data.count,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 };

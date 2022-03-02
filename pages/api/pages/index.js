@@ -1,54 +1,47 @@
 import dbConnect from "../../../utils/mongo";
-import BlogPost from "../../../models/BlogPost";
+import Pages from "../../../models/Pages";
 import slugger from "../../../utils/slugger";
 
 export default async function handler(req, res) {
   const { method, cookies } = req;
-
   const token = cookies.token;
 
   dbConnect();
 
   if (method === "GET") {
     try {
-      const posts = await BlogPost.find();
-      res.status(200).json(posts);
+      const pages = await Pages.find();
+      res.status(200).json(pages);
     } catch (err) {
       res.status(500).json(err);
     }
   }
 
   if (method === "POST") {
-    let { title, excerpt, slug, category, text, tags, thumbnail, author } =
-      req.body;
+    let slug;
+    let { title, text } = req.body;
     if (!token || token !== process.env.token) {
       return res.status(401).json("Not authenticated!");
     }
     try {
-      if (!title || !category || !text) {
+      if (!title || !text) {
         return res.status(400).json("Please fill in all fields.");
       } else {
         if (!slug) {
           slug = slugger(title);
         }
-        const isSlugExist = await BlogPost.findOne({ slug });
+        const isSlugExist = await Pages.findOne({ slug });
         if (isSlugExist) {
           const random = Math.floor(Math.random() * 100000);
           slug = `${slug}-${random}`;
         }
-
-        const newPost = BlogPost({
+        const newPage = Pages({
           title,
-          excerpt,
-          slug,
-          category,
           text,
-          tags,
-          thumbnail,
-          author,
+          slug,
         });
-        await newPost.save();
-        return res.json("Post successfully created.");
+        await newPage.save();
+        return res.json("Page successfully created.");
       }
     } catch (err) {
       return res.status(500).json("Something went wrong");
