@@ -2,12 +2,23 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import style from "../../styles/Main.module.css";
 import parse from "html-react-parser";
-import { getAPageBySlug } from "../../components/api";
+import { getAllPages, getAPageBySlug } from "../../components/api";
 import Link from "next/link";
 import { Icon } from "../../components/UI/Icon";
+import { useDispatch } from "react-redux";
+import { setDarkMode } from "../../store/settingsSlice";
+import { useEffect } from "react";
 
 export default function SinglePage({ page }) {
+  const dispatch = useDispatch();
   const router = useRouter();
+
+  useEffect(() => {
+    console.log(localStorage.getItem("darkmode"))
+    if (localStorage.getItem("darkmode") === "true") {
+      dispatch(setDarkMode(true));
+    }
+  },[]);
 
   return (
     <>
@@ -45,7 +56,17 @@ export default function SinglePage({ page }) {
   );
 }
 
-export const getServerSideProps = async ({ params }) => {
+export const getStaticPaths = async () => {
+  const { data } = await getAllPages();
+
+  const paths = data.map((page) => ({
+    params: { pageSlug: page.slug },
+  }));
+
+  return { paths, fallback: false };
+};
+
+export const getStaticProps = async ({ params }) => {
   try {
     const page = await getAPageBySlug(params.pageSlug);
     return {

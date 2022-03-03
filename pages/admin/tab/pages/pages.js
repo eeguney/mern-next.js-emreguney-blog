@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
 import { Icon } from "../../../../components/UI/Icon";
 import { Editor } from "@tinymce/tinymce-react";
+import Link from "next/link";
 import style from "../../../../styles/Admin.module.css";
-import { getAllPages } from "../../../../components/api";
+import {
+  addAPage,
+  deleteAPage,
+  editAPage,
+  getAllPages,
+  getAPageBySlug,
+} from "../../../../components/api";
 import slugger from "../../../../utils/slugger";
 
 export const Pages = () => {
   const [toggle, settoggle] = useState({ all: true, add: false });
+  const [editMode, setEditMode] = useState(false);
   const [pages, setPages] = useState([]);
   let initialize = {
     title: "",
@@ -51,10 +59,48 @@ export const Pages = () => {
     }
   };
 
-  const submit = (e) => {
-    e.preventDefault()
-    console.log({ ...form })
-  }
+  const deleteAPageHandler = async (pageID) => {
+    var answer = window.confirm("This page will be deleted?");
+    if (answer) {
+      try {
+        await deleteAPage(pageID);
+        allPages();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const editHandler = async (slug) => {
+    setEditMode(true);
+    settoggle({ all: false, add: true });
+    const { data } = await getAPageBySlug(slug);
+    setform(data);
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (editMode) {
+      try {
+        await editAPage(form.slug, {
+          ...form,
+        });
+        setEditMode(false);
+        await allPages();
+        settoggle({ add: false, all: true });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        await addAPage(form);
+        allPages();
+        settoggle({ add: false, all: true });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <div className={style.tabItem}>
@@ -75,7 +121,7 @@ export const Pages = () => {
           className={toggle.add ? style.active : null}
           onClick={toggler}
         >
-          Add Page
+          {editMode ? "Edit Page" : "Add Page"}
         </button>
       </div>
       {toggle.all && (
@@ -88,9 +134,23 @@ export const Pages = () => {
           <section>
             {pages.map((page) => (
               <div className={style.item}>
-                <div>{page.title}</div>
+                <div>
+                  <Link href={"/" + page.slug}>
+                    <a>{page.title}</a>
+                  </Link>
+                </div>
                 <div>{page.slug}</div>
-                <div>Actions</div>
+                <div className={style.actions}>
+                  <button
+                    type="button"
+                    onClick={() => deleteAPageHandler(page._id)}
+                  >
+                    <Icon.Delete size="15" />
+                  </button>
+                  <button type="button" onClick={() => editHandler(page.slug)}>
+                    <Icon.Edit size="15" />
+                  </button>
+                </div>
               </div>
             ))}
           </section>
@@ -132,7 +192,7 @@ export const Pages = () => {
             onEditorChange={(text) => textHandler(text)}
           />
           <button type="submit" className={style.submitButton}>
-            ADD PAGE
+            {editMode ? "EDIT PAGE" : "ADD PAGE"}
           </button>
         </form>
       )}

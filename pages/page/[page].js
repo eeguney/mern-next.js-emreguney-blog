@@ -3,9 +3,19 @@ import { useRouter } from "next/router";
 import { ITEM_PER_PAGE } from "../../constants/constants";
 import { getAllPost, getCountofPosts, getGitHub } from "../../components/api";
 import { Main } from "./../../components/Main/Main";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { setDarkMode } from "../../store/settingsSlice";
 
 export default function Page({ blogList, gitHub, totalCount }) {
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem("darkmode") === "true") {
+      dispatch(setDarkMode(true));
+    }
+  }, []);
   return (
     <>
       <Head>

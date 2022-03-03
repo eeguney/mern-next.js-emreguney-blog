@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   }
 
   if (method === "POST") {
-    let { title, excerpt, slug, category, text, tags, thumbnail, author } =
+    let { title, excerpt, slug, category, text, tags, thumbnail } =
       req.body;
     if (!token || token !== process.env.token) {
       return res.status(401).json("Not authenticated!");
@@ -51,6 +51,7 @@ export default async function handler(req, res) {
         return res.json("Post successfully created.");
       }
     } catch (err) {
+      console.log(err)
       return res.status(500).json("Something went wrong");
     }
   }

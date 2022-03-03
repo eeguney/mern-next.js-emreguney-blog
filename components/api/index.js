@@ -26,3 +26,13 @@ export const addAPost = (data) => API.post('/blogposts', data);
 export const addAPage = (data) => API.post('/pages', data);
 export const addACategory = (data) => API.post('/categories', data);
 export const uploadImage = (data) => API.post('/uploadimage', data);
+
+// delete
+export const deleteAPost = (postID) => API.delete('/blogposts/'+postID);
+export const deleteAPage = (pageID) => API.delete('/pages/'+pageID);
+export const deleteACategory = (pageID) => API.delete('/categories/'+pageID);
+
+// update
+export const editAPost = (slug, data) => API.put('/blogposts/'+slug, data);
+export const editAPage = (slug, data) => API.put('/pages/'+slug, data);
+export const editACategory = (slug, data) => API.put('/categories/'+slug, data);

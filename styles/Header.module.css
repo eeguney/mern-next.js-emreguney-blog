@@ -74,4 +74,5 @@
 
 .darkmodeButton .switchDark {
   transform: translateY(-35px);
+  fill: #2195f2;
 }

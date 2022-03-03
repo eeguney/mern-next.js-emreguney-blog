@@ -1,5 +1,6 @@
 import dbConnect from "../../../utils/mongo";
 import Comment from "../../../models/Comment";
+import BlogPost from "../../../models/BlogPost";
 import mongoose from "mongoose";
 
 export default async function handler(req, res) {
@@ -39,6 +40,16 @@ export default async function handler(req, res) {
           imageUrl,
           comment,
         });
+        const findPostWithID = await BlogPost.findOne({
+          _id: postID,
+        });
+          await BlogPost.findOneAndUpdate(
+            { _id: postID },
+            {
+              comments: findPostWithID.comments + 1
+            },
+            { new: true }
+          );
         const resComment = await newComment.save();
         return res.json(resComment);
       }

@@ -1,11 +1,19 @@
 import { useState, useEffect } from "react";
-import { addACategory, getAllCategories } from "../../../../components/api";
+import {
+  addACategory,
+  deleteACategory,
+  editACategory,
+  getACategoryBySlug,
+  getAllCategories,
+} from "../../../../components/api";
 import { Icon } from "../../../../components/UI/Icon";
+import Link from "next/link";
 import style from "../../../../styles/Admin.module.css";
 import slugger from "../../../../utils/slugger";
 export const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [toggle, settoggle] = useState({ all: true, add: false });
+  const [editMode, setEditMode] = useState(false);
 
   let initialize = {
     title: "",
@@ -22,7 +30,7 @@ export const Categories = () => {
     setCategories(categories.data);
   };
 
-  useEffect(() => {  
+  useEffect(() => {
     allCategories();
   }, []);
 
@@ -45,16 +53,48 @@ export const Categories = () => {
     }
   };
 
-  const submit = async (e) => {
-    e.preventDefault()
-    try {
-      await addACategory(form)
-      allCategories()
-      settoggle({ add: false, all: true })
-    } catch (error) {
-      console.log(error)
+  const deleteACategoryHandler = async (categoryID) => {
+    var answer = window.confirm("This category will be deleted?");
+    if (answer) {
+      try {
+        await deleteACategory(categoryID);
+        allCategories();
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+  };
+
+  const editHandler = async (slug) => {
+    setEditMode(true);
+    settoggle({ all: false, add: true });
+    const { data } = await getACategoryBySlug(slug);
+    setform(data);
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (editMode) {
+      try {
+        await editACategory(form.slug, {
+          ...form,
+        });
+        setEditMode(false);
+        await allCategories();
+        settoggle({ add: false, all: true });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        await addACategory(form);
+        allCategories();
+        settoggle({ add: false, all: true });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <div className={style.tabItem}>
@@ -75,7 +115,7 @@ export const Categories = () => {
           className={toggle.add ? style.active : null}
           onClick={toggler}
         >
-          Add Category
+          {editMode ? "Edit Category" : "Add Category"}
         </button>
       </div>
       {toggle.all && (
@@ -88,9 +128,26 @@ export const Categories = () => {
           <section>
             {categories.map((category) => (
               <div className={style.item}>
-                <div>{category.title}</div>
+                <div>
+                  <Link href={"/categories/" + category.slug}>
+                    <a>{category.title}</a>
+                  </Link>
+                </div>
                 <div>{category.slug}</div>
-                <div>Actions</div>
+                <div className={style.actions}>
+                  <button
+                    type="button"
+                    onClick={() => deleteACategoryHandler(category._id)}
+                  >
+                    <Icon.Delete size="15" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => editHandler(category.slug)}
+                  >
+                    <Icon.Edit size="15" />
+                  </button>
+                </div>
               </div>
             ))}
           </section>
@@ -119,7 +176,9 @@ export const Categories = () => {
               placeholder="Type some title..."
             />
           </div>
-          <button type="submit" className={style.submitButton}>ADD CATEGORY</button>
+          <button type="submit" className={style.submitButton}>
+            {editMode ? "EDIT CATEGORY" : "ADD CATEGORY"}
+          </button>
         </form>
       )}
     </div>

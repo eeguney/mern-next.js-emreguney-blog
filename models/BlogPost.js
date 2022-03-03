@@ -26,15 +26,12 @@ const BlogPostSchema = new mongoose.Schema(
       type: String,
       required: [true, "Category cannot be empty."],
     },
-    author: {
-      type: String
+    comments: {
+      type: Number,
+      default: 0
     },
     tags: {
-      type: [
-        {
-          name: String,
-        },
-      ],
+      type: [String],
     },
   },
   { timestamps: true }

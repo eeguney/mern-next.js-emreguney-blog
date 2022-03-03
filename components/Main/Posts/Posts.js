@@ -10,7 +10,7 @@ export const Posts = ({ page, blogList, totalCount, style }) => {
     >
       <Masonry gutter="20px">
         {
-          blogList.slice(0,ITEM_PER_PAGE).map((post, index) => (
+          blogList.slice(0,ITEM_PER_PAGE).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((post, index) => (
             <Card key={index} post={post} />
           ))
         }

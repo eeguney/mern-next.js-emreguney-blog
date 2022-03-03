@@ -18,6 +18,10 @@ a {
   scroll-behavior: smooth;
 }
 
+p {
+  margin: 0;
+}
+
 ul {
   margin: 0;
   padding: 0;
@@ -89,17 +93,6 @@ textarea:focus {
   transform: translateX(0);
 }
 
-/* .commentBackDrop {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  left: 0;
-  top: 0;
-  background: #fff;
-  z-index: 999;
-  backdrop-filter: blur(11px);
-} */
-
 @media screen and (min-width: 1280px) {
 }
 
@@ -158,6 +151,18 @@ textarea:focus {
   font-size: 30px;
   color: #e7e7e7;
   margin-top: -5px;
+}
+
+@media screen and (max-width: 1024px) {
+  .search-area {
+    padding: 0 15px;
+  }
+  .search-area input {
+    padding: 0 10px;
+  }
+  .search-area label {
+    display: none;
+  }
 }
 
 .hoverGoTop-sm,
@@ -259,7 +264,7 @@ textarea:focus {
 .darkmode .Main_nextPrev__ARp2B .Main_prev__RaKbv label svg,
 .darkmode .Main_nextPrev__ARp2B .Main_next__dpc4g label svg,
 .darkmode .Main_singlePost__KeyJl .Main_breadcrumb__0klJ2,
-.darkmode .Main_aboutMe__kY039 {
+.darkmode .Main_aboutMe__kY039, .darkmode .Card_card__QH1mK .Card_date__1PlZi {
   fill: white;
 }
 
@@ -284,7 +289,7 @@ textarea:focus {
 .darkmode .Main_commentRow__P67gt input,
 .darkmode .Card_card__QH1mK header span,
 .darkmode .Main_dropdownImage__FbSxS button:hover,
-.darkmode .search-area, .darkmode .Main_dropdownImage__FbSxS .Main_imageArea__l4_am input{
+.darkmode .search-area, .darkmode .Main_dropdownImage__FbSxS .Main_imageArea__l4_am input, .darkmode .Main_commentWithParent__IlY_0 textarea{
   background: #07101d;
   border-color: #07101d;
 }

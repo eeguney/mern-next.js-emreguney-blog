@@ -37,7 +37,7 @@
 
 @media screen and (max-width: 768px) {
   .aside {
-    width: calc(100% - 80px);
+    width: calc(100% - 70px);
     transform: translateX(-100%);
   }
 }

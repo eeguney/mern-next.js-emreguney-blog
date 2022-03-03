@@ -115,3 +115,17 @@
   border: 1px solid transparent;
 }
 
+.card .date {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  fill: rgb(172, 172, 172);
+}
+
+.card .date span {
+  display: flex;
+  grid-gap: 5px;
+  gap: 7px;
+  align-items: center;
+  font-size: 12px;
+}

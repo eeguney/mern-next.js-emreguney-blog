@@ -5,7 +5,7 @@ const settingSlice = createSlice({
   initialState: {
     drawer: false,
     search: false,
-    darkMode: true,
+    darkMode: false,
     comments: {
       data: [],
       status: false,

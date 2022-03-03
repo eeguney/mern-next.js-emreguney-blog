@@ -3,9 +3,14 @@ import Head from "next/head";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import parse from "html-react-parser";
-import { setCommentCount, toggleComment } from "../store/settingsSlice";
+import {
+  setCommentCount,
+  setDarkMode,
+  toggleComment,
+} from "../store/settingsSlice";
 import { Icon } from "../components/UI/Icon";
 import {
+  getAllPost,
   getAPostBySlug,
   getCountofComment,
   nextPost,
@@ -27,6 +32,12 @@ export default function SinglePost({ post, prev, next, commentCount }) {
   const [currentPost, setcurrentPost] = useState(post);
   const [loadedPost, setloadedPost] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("darkmode") === "true") {
+      dispatch(setDarkMode(true));
+    }
+  }, []);
 
   useEffect(() => {
     setinitialprevNext({ ...initialprevNext, prevPost: prev, nextPost: next });
@@ -114,7 +125,7 @@ export default function SinglePost({ post, prev, next, commentCount }) {
                 </div>
               </div>
               <div className={style.thumbnail}>
-                <img src={post.thumbnail} alt={post.title} />
+                <img src={`/uploads/` + post.thumbnail} alt={post.title} />
               </div>
             </header>
             <div className={style.postContextWrapper}>
@@ -145,7 +156,10 @@ export default function SinglePost({ post, prev, next, commentCount }) {
                         </label>
                         <div className={style.content}>
                           <img
-                            src={initialprevNext.prevPost[0].thumbnail}
+                            src={
+                              "/uploads/" +
+                              initialprevNext.prevPost[0].thumbnail
+                            }
                             alt={initialprevNext.prevPost[0].title}
                           />
                           <h3>{initialprevNext.prevPost[0].title}</h3>
@@ -164,7 +178,10 @@ export default function SinglePost({ post, prev, next, commentCount }) {
                         <div className={style.content}>
                           <h3>{initialprevNext.nextPost[0].title}</h3>
                           <img
-                            src={initialprevNext.nextPost[0].thumbnail}
+                            src={
+                              "/uploads/" +
+                              initialprevNext.nextPost[0].thumbnail
+                            }
                             alt={initialprevNext.nextPost[0].title}
                           />
                         </div>
@@ -246,7 +263,17 @@ export default function SinglePost({ post, prev, next, commentCount }) {
   );
 }
 
-export const getServerSideProps = async ({ params }) => {
+export const getStaticPaths = async () => {
+  const { data } = await getAllPost();
+
+  const paths = data.map((post) => ({
+    params: { postSlug: post.slug },
+  }));
+
+  return { paths, fallback: false };
+};
+
+export const getStaticProps = async ({ params }) => {
   try {
     const post = await getAPostBySlug(params.postSlug);
     const commentCount = await getCountofComment(post.data._id);

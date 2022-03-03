@@ -216,6 +216,51 @@ export const Icon = {
       </svg>
     );
   },
+  CommentIcon: ({ size }) => {
+    return (
+      <svg
+        width={size}
+        height={size}
+        xmlns="http://www.w3.org/2000/svg"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        viewBox="0 0 24 24"
+      >
+        <path d="M0 1v16.981h4v5.019l7-5.019h13v-16.981h-24zm7 10c-.828 0-1.5-.671-1.5-1.5s.672-1.5 1.5-1.5c.829 0 1.5.671 1.5 1.5s-.671 1.5-1.5 1.5zm5 0c-.828 0-1.5-.671-1.5-1.5s.672-1.5 1.5-1.5c.829 0 1.5.671 1.5 1.5s-.671 1.5-1.5 1.5zm5 0c-.828 0-1.5-.671-1.5-1.5s.672-1.5 1.5-1.5c.829 0 1.5.671 1.5 1.5s-.671 1.5-1.5 1.5z" />
+      </svg>
+    );
+  },
+
+  Edit: ({ size }) => {
+    return (
+      <svg
+        width={size}
+        height={size}
+        xmlns="http://www.w3.org/2000/svg"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        viewBox="0 0 24 24"
+      >
+        <path d="M24 5.689l-5.69-5.689-16.872 16.872-1.439 7.127 7.127-1.437z" />
+      </svg>
+    );
+  },
+
+  Delete: ({ size }) => {
+    return (
+      <svg
+        width={size}
+        height={size}
+        xmlns="http://www.w3.org/2000/svg"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        viewBox="0 0 24 24"
+      >
+        <path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2m3-19h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-12-2h4v-1h-4v1z"/>
+      </svg>
+    );
+  },
+
   Spinner: () => {
     return (
       <svg
