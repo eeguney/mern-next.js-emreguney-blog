@@ -227,3 +227,153 @@ textarea:focus {
   box-shadow: 5px 0px 21px 7px #2196f340;
   transition: all 0.4s ease;
 }
+
+.DraftEditor-root {
+  height: 300px !important;
+}
+
+.tox-notifications-container {
+  display: none;
+}
+
+/* darkmode */
+
+.darkmode {
+  transition: all 0.4s ease;
+  transition: border-color 0s;
+}
+
+.darkmode,
+.darkmode .Aside_aside__z5Sce,
+.darkmode .Aside_gitHubCard__EqKxw .Aside_cover__Gsy9f,
+.darkmode .Aside_aside__z5Sce::-webkit-scrollbar-track {
+  background: #0d1727;
+}
+
+.darkmode #Header_header__VYZ3G {
+  background: #00000000;
+}
+
+.darkmode #Header_header__VYZ3G button,
+.darkmode .Main_postShare__EQawM .Main_items__zSGkE .Main_item__JARc6,
+.darkmode .Main_nextPrev__ARp2B .Main_prev__RaKbv label svg,
+.darkmode .Main_nextPrev__ARp2B .Main_next__dpc4g label svg,
+.darkmode .Main_singlePost__KeyJl .Main_breadcrumb__0klJ2,
+.darkmode .Main_aboutMe__kY039 {
+  fill: white;
+}
+
+.darkmode .Header_menuButton__aP6zE span {
+  background: white;
+}
+
+.darkmode .Main_singlePost__KeyJl header h2,
+.darkmode .Main_singlePost__KeyJl .Main_postDescItem__JSs_U label,
+.darkmode .Main_postContextWrapper__5UYyb,
+.darkmode .Main_singlePost__KeyJl .Main_breadcrumb__0klJ2,
+.darkmode .Main_aboutMe__kY039,
+.darkmode .Card_card__QH1mK article,
+.darkmode .Card_card__QH1mK header span,
+.darkmode .pagination_pagination__0urRr,
+.darkmode .Main_commentsSection__t28qN .Main_addComment__pElx0 input, .darkmode .Main_commentsSection__t28qN .Main_addComment__pElx0 textarea {
+  color: white;
+}
+
+.darkmode .Main_addComment__pElx0 textarea,
+.darkmode .Aside_gitHubRepo__M57rm .Aside_repoItem__122rv,
+.darkmode .Main_commentRow__P67gt input,
+.darkmode .Card_card__QH1mK header span,
+.darkmode .Main_dropdownImage__FbSxS button:hover,
+.darkmode .search-area, .darkmode .Main_dropdownImage__FbSxS .Main_imageArea__l4_am input{
+  background: #07101d;
+  border-color: #07101d;
+}
+
+.darkmode .Main_addComment__pElx0 .Main_submitComment__MdogL,
+.darkmode .Aside_gitHubCard__EqKxw,
+.darkmode .Card_card__QH1mK article,
+.darkmode .search-area input {
+  background: #07101d;
+}
+
+.darkmode .Main_postContextWrapper__5UYyb,
+.darkmode .Card_card__QH1mK .Card_bottom__wVoWZ,
+.darkmode .Card_card__QH1mK .Card_seeAll__erpo9,
+.darkmode .Aside_gitHubRepo__M57rm .Aside_repoItem__122rv header {
+  border-color: #07101d;
+}
+
+.darkmode .Aside_aside__z5Sce .Aside_widget___YUdM label,
+.darkmode .Aside_gitHubCard__EqKxw .Aside_userInfo__CDyZu h3,
+.darkmode .Aside_gitHubCard__EqKxw .Aside_userInfo__CDyZu p,
+.darkmode .Aside_gitHubCard__EqKxw .Aside_statistic__o2W_A,
+.darkmode .Aside_gitHubCard__EqKxw .Aside_statistic__o2W_A span,
+.darkmode .Aside_gitHubRepo__M57rm .Aside_repoName__W3MT5,
+.darkmode .Aside_gitHubRepo__M57rm .Aside_repoDesc__dlL7C,
+.darkmode .Main_container__iNGdd .Main_title__1mWSU h3,
+.darkmode .Card_card__QH1mK .Card_date__1PlZi {
+  color: white !important;
+}
+
+.darkmode .Main_fixedComments__zApGs {
+  background: #ffffff12;
+  color: white;
+}
+
+.darkmode .Main_dropdownImage__FbSxS button {
+  background: #07101d;
+  border-color: #07101d;
+  color: white;
+  fill: white;
+}
+
+.darkmode .Main_container__iNGdd .Main_title__1mWSU .Main_seeAll__KRlnP {
+  fill: #2196f3 !important;
+}
+
+.darkmode .Aside_aside__z5Sce::-webkit-scrollbar-thumb {
+  background: #2196f3;
+}
+
+.darkmode .Main_fastLinks__xJOSZ:after {
+  background: #ffffff0d;
+}
+
+.darkmode .Card_card__QH1mK .Card_seeAll__erpo9 {
+  border: 1px solid #1976d2;
+  box-shadow: 0px 0px 27px 7px rgb(33 149 243 / 8%);
+}
+
+.darkmode .Card_card__QH1mK .Card_seeAll__erpo9:hover {
+  background-color: #1976d2;
+  color: white;
+  box-shadow: 0px 0px 17px 10px rgb(57 146 233 / 31%);
+  border: 1px solid transparent;
+}
+
+.darkmode .Card_card__QH1mK header span:hover,
+.darkmode .Main_socialLinks__kWck2 a::after, .darkmode .Main_commentsSection__t28qN .Main_seeAllComments__XG3LM {
+  background-color: #1976d2;
+  color: white;
+}
+
+.darkmode .Main_prev__RaKbv .Main_content__NBvGt h3,
+.darkmode .Main_prev__RaKbv .Main_content__NBvGt:hover h3,
+.darkmode .Main_next__dpc4g .Main_content__NBvGt:hover h3, .darkmode .Main_prev__RaKbv .Main_content__NBvGt h3, .darkmode .Main_next__dpc4g .Main_content__NBvGt h3 {
+  text-decoration: none;
+}
+
+.darkmode .Main_comments__F0Gk1 ul li .Main_comment__pd96r p {
+  background: linear-gradient(145deg, #495464, #07101d);
+  box-shadow: 20px 20px 60px #00000052, -20px -20px 60px #00000017;
+}
+
+.darkmode .Main_comments__F0Gk1 ul li .Main_userInfo__SgF5R img {
+  background: linear-gradient(145deg, #495464, #07101d);
+  box-shadow: 20px 20px 60px #00000052, -20px -20px 60px #00000017;
+}
+
+.darkmode .Main_comments__F0Gk1 ul li .Main_comment__pd96r .Main_meta__RrnVB {
+  color: white!important;
+  fill: white!important
+}

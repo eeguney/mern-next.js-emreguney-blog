@@ -1,42 +1,56 @@
 import { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
 import { Icon } from "../../../../components/UI/Icon";
-import { ContentState, convertToRaw } from "draft-js";
-import { Formik } from "formik";
-import * as Yup from "yup";
-const Editor = dynamic(
-  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
-  { ssr: false }
-);
+import { Editor } from "@tinymce/tinymce-react";
 import style from "../../../../styles/Admin.module.css";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { getAllCategories, getAllPost } from "../../../../components/api";
-
-const validationSchema = Yup.object({
-  email: Yup.string().required("Reqired").email("Invalid"),
-  fullname: Yup.string()
-    .required("Required")
-    .min(3, "Too short")
-    .max(40, "Too long"),
-  comment: Yup.string()
-    .required("Required")
-    .min(2, "Too short")
-    .max(4000, "Too long"),
-  image: Yup.string().min(7, "Too short").max(100, "Too long"),
-});
+import {
+  getAllCategories,
+  getAllPost,
+  uploadImage,
+} from "../../../../components/api";
+import slugger from "../../../../utils/slugger";
 
 export const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
+  let initialize = {
+    title: "",
+    category: "",
+    thumbnail: "",
+    slug: "",
+    text: "",
+    tags: ""
+  };
+  const [form, setform] = useState(initialize);
   const [toggle, settoggle] = useState({ all: true, add: false });
   const [dropdown, setdropdown] = useState({
     category: { status: false, value: "" },
     tag: { status: false, value: "" },
   });
+  const [image, setImage] = useState(null);
+  const [createObjectURL, setCreateObjectURL] = useState(null);
 
-  let _contentState = ContentState.createFromText("Sample content state");
-  const raw = convertToRaw(_contentState);
-  const [contentState, setContentState] = useState(raw); // ContentState JSON
+  const allPosts = async () => {
+    const posts = await getAllPost();
+    setPosts(posts.data);
+    const categories = await getAllCategories();
+    setCategories(categories.data);
+  };
+  
+  useEffect(() => {
+    allPosts();
+  }, []);
+
+  const [intags, setIntags] = useState([]);
+
+  const TagSpan = () => {
+    return (
+      <>
+        {intags.map((item) => (
+          <span>{item}</span>
+        ))}
+      </>
+    );
+  };
 
   const toggler = async (e) => {
     settoggle({ all: false, add: false, [e.target.name]: true });
@@ -53,15 +67,63 @@ export const Posts = () => {
     });
   };
 
-  useEffect(() => {
-    const allPosts = async () => {
-      const posts = await getAllPost();
-      setPosts(posts.data);
-      const categories = await getAllCategories();
-      setCategories(categories.data);
-    };
-    allPosts();
-  }, []);
+  const handleTags = (event) => {
+    if (event.key === ",") {
+      if (form.tags.length > 2) {
+        const newTag = form.tags;
+        intags.push(newTag.split(",").slice(0).join(""));
+        setform({ ...form, tags: "" });
+      }
+    }
+    if (event.key === "Backspace") {
+      if (form.tags === "") {
+        setIntags(intags.filter((element, index) => index < intags.length - 1));
+      }
+    }
+  };
+
+  const slugChanger = (event) => {
+    setform({ ...form, slug: slugger(event.target.value) });
+  };
+
+  const textHandler = (text) => {
+    setform({ ...form, text: text });
+  };
+
+  const formHandler = (event) => {
+    if (event.target.name === "title") {
+      setform({
+        ...form,
+        title: event.target.value,
+        slug: slugger(event.target.value),
+      });
+    } else {
+      setform({
+        ...form,
+        [event.target.name]: event.target.value,
+      });
+    }
+  };
+
+  const uploadToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+      setImage(i);
+      setform({...form, thumbnail: i.name})
+      setCreateObjectURL(URL.createObjectURL(i));
+    }
+  };
+
+  const uploadToServer = async () => {
+    const body = new FormData();
+    body.append("file", image);
+    await uploadImage(body);
+  };
+
+  const submit = (e) => {
+    e.preventDefault()
+    console.log({ ...form, tags: intags })
+  }
 
   return (
     <div className={style.tabItem}>
@@ -113,83 +175,94 @@ export const Posts = () => {
           </section>
         </div>
       )}
-      {/* title, excerpt, slug, category, text, tags, thumbnail, author */}
 
       {toggle.add && (
-        <Formik
-          initialValues={{
-            title: "",
-          }}
-          validationSchema={validationSchema}
-          onSubmit={async (values) => {}}
-        >
-          {({ handleSubmit, handleChange, values, errors }) => (
-            <form onSubmit={handleSubmit} className={style.form}>
-              <div className={style.formItem}>
-                <label>Title:</label>
-                <input type="text" placeholder="Title" name="title" />
+        <form className={style.form} onSubmit={submit}>
+          <div className={style.formItem}>
+            <label>Title:</label>
+            <input
+              type="text"
+              placeholder="Title"
+              name="title"
+              value={form.title}
+              onChange={formHandler}
+            />
+          </div>
+          <div className={style.formColumnItem}>
+            <label>Link:</label>
+            <input
+              type="text"
+              className={style.slugInput}
+              name="slug"
+              value={form.slug}
+              onChange={slugChanger}
+              placeholder="Type some title..."
+            />
+          </div>
+          <div className={style.formItem}>
+            <div className={style.thumbnailSelect}>
+            <label>Thumbnail:</label>
+              <div className={style.dropImage}>
+              <input type="file" name="myImage" onChange={uploadToClient} />
+              <p>Drop or select a thumbnail</p>
+              {image && (<img src={createObjectURL} className={style.thumbnailPreview} />) }
               </div>
-              <div className={style.formColumnItem}>
-                <label>Link:</label>
-                <input
-                  type="text"
-                  className={style.slugInput}
-                  name="slug"
-                  placeholder="Type some title..."
-                />
+              {image && (
+                <button type="submit" onClick={uploadToServer}>
+                  Save
+                </button>
+              )}
+            </div>
+          </div>
+          <div className={style.formColumnItem}>
+            <label>Category:</label>
+            <div className={style.categorySelect}>
+              <button type="button" name="category" onClick={dropdownHandler}>
+                { form.category != "" ? form.category : "SELECT" } 
+              </button>
+              <div
+                className={`${style.dropdown} ${
+                  dropdown.category.status ? style.active : style.hidden
+                }`}
+              >
+                {categories.map((category) => (
+                  <button type="button" className={form.category == category.slug && style.activeCategory } onClick={() => setform({ ...form, category: category.slug })}>
+                    {category.title}
+                  </button>
+                ))}
               </div>
-              <div className={style.formItem}>
-                  <label>Category:</label>
-                  <div className={style.categorySelect}>
-                    <button
-                      type="button"
-                      name="category"
-                      onClick={dropdownHandler}
-                    >
-                      SELECT
-                    </button>
-                    <div
-                      className={`${style.dropdown} ${
-                        dropdown.category.status ? style.active : style.hidden
-                      }`}
-                    >
-                      {categories.map((category) => (
-                        <button type="button" value={category.slug}>
-                          {category.title}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className={style.formItem}>
-                  <label>Tag:</label>
-                  <div className={style.categorySelect}>
-                    <button type="button" name="tag" onClick={dropdownHandler}>
-                      SELECT
-                    </button>
-                    <div
-                      className={`${style.dropdown} ${
-                        dropdown.tag.status ? style.active : style.hidden
-                      }`}
-                    >
-                      {categories.map((category) => (
-                        <button type="button" value={category.slug}>
-                          {category.title}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+            </div>
+          </div>
+          <div className={style.formItem}>
+            <label>Tag:</label>
+            <div className={style.tags_area}>
+              <div className={style.tags_styled}>
+                {intags.length > 0 ? <TagSpan /> : ""}
               </div>
-              <Editor
-                defaultContentState={contentState}
-                onContentStateChange={setContentState}
-                wrapperClassName="wrapper-class"
-                editorClassName="editor-class"
-                toolbarClassName="toolbar-class"
+              <input
+                type="text"
+                name="tags"
+                className={style.tags}
+                placeholder="Type some tags seperated with comma.."
+                value={form.tags}
+                onKeyUp={handleTags}
+                onChange={formHandler}
               />
-            </form>
-          )}
-        </Formik>
+            </div>
+          </div>
+          <Editor
+              value={form.text}
+              init={{
+                height: 800,
+                menubar: true,
+                mobile: {
+                  menubar: false,
+                },
+              }}
+              onEditorChange={(text) => textHandler(text)}
+            />
+          <button type="submit" className={style.submitButton}>ADD POST</button>
+        </form>
       )}
     </div>
   );

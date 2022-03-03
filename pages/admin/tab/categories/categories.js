@@ -1,22 +1,60 @@
 import { useState, useEffect } from "react";
-import { getAllCategories } from "../../../../components/api";
+import { addACategory, getAllCategories } from "../../../../components/api";
 import { Icon } from "../../../../components/UI/Icon";
 import style from "../../../../styles/Admin.module.css";
+import slugger from "../../../../utils/slugger";
 export const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [toggle, settoggle] = useState({ all: true, add: false });
+
+  let initialize = {
+    title: "",
+    slug: "",
+  };
+  const [form, setform] = useState(initialize);
 
   const toggler = async (e) => {
     settoggle({ all: false, add: false, [e.target.name]: true });
   };
 
-  useEffect(() => {
-     const allCategories = async () => {
-       const categories = await getAllCategories()
-       setCategories(categories.data)
-     }
-     allCategories()
-   }, [])
+  const allCategories = async () => {
+    const categories = await getAllCategories();
+    setCategories(categories.data);
+  };
+
+  useEffect(() => {  
+    allCategories();
+  }, []);
+
+  const slugChanger = (event) => {
+    setform({ ...form, slug: slugger(event.target.value) });
+  };
+
+  const formHandler = (event) => {
+    if (event.target.name === "title") {
+      setform({
+        ...form,
+        title: event.target.value,
+        slug: slugger(event.target.value),
+      });
+    } else {
+      setform({
+        ...form,
+        [event.target.name]: event.target.value,
+      });
+    }
+  };
+
+  const submit = async (e) => {
+    e.preventDefault()
+    try {
+      await addACategory(form)
+      allCategories()
+      settoggle({ add: false, all: true })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className={style.tabItem}>
@@ -48,28 +86,42 @@ export const Categories = () => {
             <div>Actions</div>
           </header>
           <section>
-            { categories.map((category) => (
+            {categories.map((category) => (
               <div className={style.item}>
-              <div>{category.title}</div>
-              <div>{category.slug}</div>
-              <div>Actions</div>
-            </div>
-            )) }
+                <div>{category.title}</div>
+                <div>{category.slug}</div>
+                <div>Actions</div>
+              </div>
+            ))}
           </section>
         </div>
       )}
-      {toggle.add && 
-      <form className={style.form}>
+      {toggle.add && (
+        <form className={style.form} onSubmit={submit}>
           <div className={style.formItem}>
-              <label>Title:</label>
-              <input type="text" placeholder="Title" />
+            <label>Title:</label>
+            <input
+              type="text"
+              placeholder="Title"
+              name="title"
+              value={form.title}
+              onChange={formHandler}
+            />
           </div>
           <div className={style.formColumnItem}>
             <label>Link:</label>
-            <input type="text" className={style.slugInput} placeholder="Type some title..." />
+            <input
+              type="text"
+              className={style.slugInput}
+              name="slug"
+              value={form.slug}
+              onChange={slugChanger}
+              placeholder="Type some title..."
+            />
           </div>
-      </form>
-      }
+          <button type="submit" className={style.submitButton}>ADD CATEGORY</button>
+        </form>
+      )}
     </div>
   );
 };

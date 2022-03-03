@@ -47,7 +47,6 @@ export const CommentsModal = ({ postID }) => {
       Math.abs(new Date(data.createdAt) - new Date()) / (1000 * 60 * 60 * 24)
     );
     return (
-      <Fade duration={400}>
         <li>
           <div className={style.commentItem}>
             <div className={style.userInfo}>
@@ -87,7 +86,6 @@ export const CommentsModal = ({ postID }) => {
           </div>
           {children}
         </li>
-      </Fade>
     );
   };
 

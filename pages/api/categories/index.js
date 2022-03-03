@@ -18,8 +18,8 @@ export default async function handler(req, res) {
   }
 
   if (method === "POST") {
-    let slug;
-    let { title } = req.body;
+    let { title, slug } = req.body;
+
     if (!token || token !== process.env.token) {
       return res.status(401).json("Not authenticated!");
     }
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
           const random = Math.floor(Math.random() * 100000);
           slug = `${slug}-${random}`;
         }
-        const newCategory = Pages({
+        const newCategory = Category({
           title,
           slug,
         });

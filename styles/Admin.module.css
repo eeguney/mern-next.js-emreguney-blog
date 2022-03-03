@@ -230,7 +230,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 40px;
 }
 
 .formItem {
@@ -250,17 +250,12 @@
   padding: 0 15px;
   font-size: 18px;
   font-weight: 700;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+  border: none;
+  border-bottom: 3px solid #e5e5e5;
 }
 
 .formColumnItem input {
   flex: 1;
-}
-
-.DraftEditor-root {
-  position: relative;
-  height: 300px;
 }
 
 .wrapper-class {
@@ -315,12 +310,13 @@
   gap: 15px;
   position: relative;
 }
- .categorySelect button {
+
+.categorySelect button {
   height: 45px;
-  border: 1px solid #000000;
-  background: #000000;
   border-radius: 10px;
-  color: #cbcbcb;
+  border: 1px solid #ccc;
+  background: white;
+  color: #000000;
   width: 250px;
 }
 
@@ -332,7 +328,7 @@
   position: absolute;
   top: 60px;
   left: 0;
-  width: calc(100% + 30px);
+  width: calc(100% + 10px);
   overflow: hidden;
   z-index: 9;
 }
@@ -346,4 +342,151 @@
   max-height: 250px;
   opacity: 1;
   overflow: auto;
+}
+
+.categorySelect .active::-webkit-scrollbar {
+  width: 5px;
+}
+
+.categorySelect .active::-webkit-scrollbar-track {
+  background: #ffffff;
+  margin: 10px;
+}
+
+.categorySelect .active::-webkit-scrollbar-thumb {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  border: 0px solid #ffffff;
+}
+
+.activeCategory {
+  border-color: #2196f3 !important;
+  background: #2196f3!important;
+  color: white !important;
+}
+
+.tags_area {
+  display: flex;
+  background: white;
+  border: none;
+  border-bottom: 3px solid #e5e5e5;
+}
+.tags_styled {
+  display: flex;
+  align-items: center;
+  padding: 0px 0 0 2rem;
+}
+.tags_styled span {
+  background: #f56a1a;
+  margin-right: 5px;
+  padding: 5px 10px;
+  border-radius: 1rem;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0px 5px 1px #0000001c;
+  border-bottom: 5px solid #0000001f;
+}
+.tags_styled span:nth-child(n) {
+  background-color: #ff2626;
+}
+.tags_styled span:nth-child(2n) {
+  background-color: #65cf0b;
+}
+.tags_styled span:nth-child(3n) {
+  background-color: #dd5e15;
+}
+.tags_styled span:nth-child(4n) {
+  background-color: #3b0bcf;
+}
+.tags_styled span:nth-child(5n) {
+  background-color: #5fbe0b;
+}
+
+.tags_area input {
+  height: 60px;
+  padding: 0 15px;
+  font-size: 17px;
+  font-weight: 200;
+  flex: 1 1;
+  border: none;
+}
+
+.thumbnailSelect {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.thumbnailSelect input {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  height: 100%;
+  font-weight: 300;
+  font-size: 15px;
+  opacity: 0;
+  z-index: 2;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.dropImage {
+  position: relative;
+  flex: 1;
+  border: 1px dashed #ccc;
+  padding: 15px;
+  display: flex;
+  border-radius: 15px;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.dropImage:hover {
+  border-color: rgb(87, 87, 87);
+}
+
+.dropImage p {
+  text-align: center;
+}
+
+.thumbnailSelect button {
+  border: none;
+  background: #efefef;
+  color: black;
+  font-weight: 200;
+  font-size: 14px;
+  padding: 5px 15px;
+  width: fit-content;
+  border-radius: 5px;
+}
+
+.thumbnailPreview {
+  width: 150px;
+  max-height: 150px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 999px;
+}
+
+.submitButton {
+  background: #03a9f4;
+  border: none;
+  height: 65px;
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 15px;
+  box-shadow: 0px 8px 0px #0590cf;
+}
+
+.submitButton:hover {
+  box-shadow: 0px 0px 0px #0590cf;
+  transform: translateY(8px);
+  background: #09a6ed;
 }

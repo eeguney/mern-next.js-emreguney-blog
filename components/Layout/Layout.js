@@ -25,7 +25,7 @@ export const Layout = ({ children, gitHub, repo }) => {
   };
 
   return (
-    <div className="site-layout">
+    <div className={`site-layout ${settings.darkMode ? "darkmode" : ""}`}>
       <div className={`search-area ${settings.search ? "open" : ""}`}>
         <label>Search:</label>
         <input

@@ -3,6 +3,7 @@ import { getAllPost } from "../components/api";
 import { Main } from "./../components/Main/Main";
 
 export default function Home({ blogList }) {
+
   return (
     <>
       <Head>

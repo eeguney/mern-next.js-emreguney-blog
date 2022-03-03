@@ -23,3 +23,6 @@ export const getACategoryBySlug = (slug) => API.get('/categories/'+slug);
 
 // posts
 export const addAPost = (data) => API.post('/blogposts', data);
+export const addAPage = (data) => API.post('/pages', data);
+export const addACategory = (data) => API.post('/categories', data);
+export const uploadImage = (data) => API.post('/uploadimage', data);
