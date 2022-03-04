@@ -118,7 +118,7 @@
   font-weight: 700;
   background: black;
   padding: 15px 0;
-  border-radius: 15px;
+  border-radius: 25px;
   text-align: center;
   border: none;
   color: white;
@@ -171,7 +171,7 @@
 }
 
 .tabItem .grid {
-  border: 1px solid #ccc;
+  border: 1px solid #e9e9e9;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -187,7 +187,7 @@
   grid-template-columns: auto 200px 200px 140px 130px;
   text-align: center;
   margin-bottom: 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #e9e9e9;
 }
 
 @media screen and (max-width: 1024px) {
@@ -230,9 +230,10 @@
 }
 
 .grid header {
-  background: #f1f1f1;
-  color: black;
+  color: white;
   align-items: center;
+  background: linear-gradient(145deg, #141414, #000000);
+  box-shadow: 20px 20px 41px #54545426, -20px -20px 41px #36363663;
 }
 
 .grid header div {
@@ -249,7 +250,6 @@
 
 .grid header div,
 .grid section div {
-  border-right: 1px solid #ccc;
   padding: 10px 20px;
 }
 
@@ -530,4 +530,159 @@
   border: navajowhite;
   width: 35px;
   height: 35px;
+}
+
+.adminLayout {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: linear-gradient(145deg, #141414, #000000);
+  border-radius: 50px;
+  padding: 25px 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  grid-gap: 25px;
+  gap: 25px;
+}
+
+.card_sm {
+  grid-area: 1 / 1 / 2 / 4;
+  height: 150px;
+}
+
+.card_sm2 {
+  grid-area: 1 / 4 / 2 / 7;
+  height: 150px;
+}
+
+.card_md {
+  grid-area: 2 / 1 / 4 / 7;
+}
+
+.card_lg {
+  grid-area: 1 / 7 / 4 / 13;
+}
+
+.card_lg .info {
+  margin-top: 5px;
+  color: white;
+  font-weight: 200;
+}
+
+.card_lg .listContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-height: 330px;
+  overflow: auto;
+  padding-right: 20px;
+}
+
+.listContainer li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.listContainer li .personInfo {
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+}
+
+li .personInfo label {
+  font-size: 14px;
+  font-weight: 200;
+  margin-right: 5px;
+}
+
+li .personInfo label::after {
+  display: none;
+}
+
+.listContainer p {
+  font-size: 14px;
+  padding: 10px;
+  background: #181818;
+  border-radius: 15px;
+}
+
+.listContainer .controller {
+  display: flex;
+  grid-gap: 15px;
+  gap: 15px;
+  fill: white;
+}
+
+.listContainer .controller button {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  font-weight: 400;
+  color: white;
+}
+
+.small_inner {
+  display: flex;
+  height: 100%;
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
+}
+
+.small_inner label {
+  font-weight: 900;
+  font-size: 13px !important;
+  color: #b7b7b7 !important;
+}
+
+.small_inner label:after {
+  display: none;
+}
+
+.small_inner span {
+  font-size: 65px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  margin-top: -5px;
+  color: white;
+}
+
+.card label {
+  font-weight: 900;
+  font-size: 18px;
+  position: relative;
+  color: white;
+}
+.card label:after {
+  content: "";
+  width: 15px;
+  height: 5px;
+  border-radius: 15px;
+  background: #f7f7f7;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 35px;
+  margin: auto;
+  box-shadow: 0px 0px 11px 3px #dfdfdf;
+}
+.card ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+  gap: 15px;
+}
+
+.card ul li {
+  font-weight: 600;
+  font-size: 19px;
 }

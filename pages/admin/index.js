@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import style from "../../styles/Admin.module.css";
 import Link from "next/link";
 import { Icon } from "../../components/UI/Icon";
 import { Main } from "./tab/main/main";
 import { Pages } from "./tab/pages/pages";
+import { useDispatch } from "react-redux";
 import { Posts } from "./tab/posts/posts";
 import { Categories } from "./tab/categories/categories";
 import { Settings } from "./tab/settings/settings";
-import axios from "axios";
+import { setDarkMode } from "../../store/settingsSlice";
 
-export default function Admin({ posts, pagesProp }) {
+export default function Admin({ posts }) {
+  const dispatch = useDispatch();
+
   const initialActiveTab = {
     main: true,
     posts: false,
@@ -19,6 +22,12 @@ export default function Admin({ posts, pagesProp }) {
     settings: false,
   };
   const [activeTab, setactiveTab] = useState(initialActiveTab);
+
+  useEffect(() => {
+    if (localStorage.getItem("darkmode") === "true") {
+      dispatch(setDarkMode(true));
+    }
+  }, []);
 
   const resetActiveTab = () => {
     setactiveTab({ initialActiveTab });

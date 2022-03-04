@@ -23,6 +23,19 @@ export default async function handler(req, res) {
     }
   }
 
+  if (method === "DELETE") {
+    if (!token || token !== process.env.token) {
+      return res.status(401).json("Not authenticated!");
+    } else {
+      try {
+        await Comment.findOneAndDelete({ _id: postID });
+        res.status(200).json({ msg: "Deleted..." });
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    }
+  }
+
   if (method === "POST") {
     let { parentID, email, fullname, imageUrl, comment } = req.body;
     if (!token || token !== process.env.token) {

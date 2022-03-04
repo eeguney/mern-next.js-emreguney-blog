@@ -17,8 +17,10 @@ export const prevPost = (id) => API.get('/blogposts/prev/'+id);
 export const fetchCommentByPostID = (postID) => API.get('/comment/'+postID);
 export const getCountofComment = (postID) => API.get('/comment/count/'+postID);
 export const getCountofPosts = () => API.get('/blogposts/count');
+export const getCountofCategories = () => API.get('/categories/count');
 export const addComment = (postID, data) => API.post(`/comment/${postID}`, data);
 export const getAllCategories = () => API.get('/categories');
+export const getAllComments = () => API.get('/comment');
 export const getACategoryBySlug = (slug) => API.get('/categories/'+slug);
 
 // posts
@@ -30,7 +32,8 @@ export const uploadImage = (data) => API.post('/uploadimage', data);
 // delete
 export const deleteAPost = (postID) => API.delete('/blogposts/'+postID);
 export const deleteAPage = (pageID) => API.delete('/pages/'+pageID);
-export const deleteACategory = (pageID) => API.delete('/categories/'+pageID);
+export const deleteACategory = (categoryID) => API.delete('/categories/'+categoryID);
+export const deleteAComment = (commentID) => API.delete('/comment/'+commentID);
 
 // update
 export const editAPost = (slug, data) => API.put('/blogposts/'+slug, data);
