@@ -22,6 +22,7 @@ export const addComment = (postID, data) => API.post(`/comment/${postID}`, data)
 export const getAllCategories = () => API.get('/categories');
 export const getAllComments = () => API.get('/comment');
 export const getACategoryBySlug = (slug) => API.get('/categories/'+slug);
+export const getAllSettings = () => API.get('/settings');
 
 // posts
 export const addAPost = (data) => API.post('/blogposts', data);
@@ -39,3 +40,4 @@ export const deleteAComment = (commentID) => API.delete('/comment/'+commentID);
 export const editAPost = (slug, data) => API.put('/blogposts/'+slug, data);
 export const editAPage = (slug, data) => API.put('/pages/'+slug, data);
 export const editACategory = (slug, data) => API.put('/categories/'+slug, data);
+export const updateSettings = (data) => API.put('/settings', data);

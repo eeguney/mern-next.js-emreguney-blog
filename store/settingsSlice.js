@@ -6,6 +6,14 @@ const settingSlice = createSlice({
     drawer: false,
     search: false,
     darkMode: false,
+    settings: {
+      postperpage: 15,
+      email: "emreguney@outlook.com.tr",
+      authorinfo: "Trying to be front-end, maybe even full-stack developer...",
+      author: "Emre Güney",
+      github: "eeguney",
+      twitter: "eeguney",
+    },
     comments: {
       data: [],
       status: false,
@@ -41,6 +49,9 @@ const settingSlice = createSlice({
     setCommentCount: (state, action) => {
       state.comments.count = action.payload;
     },
+    updateSettingState: (state, action) => {
+      state.settings = action.payload;
+    },
     reset: (state) => {
       state.drawer = false;
       state.search = false;
@@ -57,6 +68,7 @@ export const {
   addCommentData,
   setCommentCount,
   toggleComment,
+  updateSettingState,
   reset,
 } = settingSlice.actions;
 export default settingSlice.reducer;

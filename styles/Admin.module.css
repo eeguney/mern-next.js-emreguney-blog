@@ -257,6 +257,7 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
+  position: relative;
 }
 
 .formItem {
@@ -685,4 +686,36 @@ li .personInfo label::after {
 .card ul li {
   font-weight: 600;
   font-size: 19px;
+}
+
+
+.error {
+  position: absolute;
+  right: 17px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 22px;
+  fill: red;
+  cursor: pointer;
+  z-index: 9;
+}
+
+.form .error:hover {
+  filter: drop-shadow(0px 0px 12px red);
+}
+
+.form .error:hover::after{
+  content: attr(data-error);
+  width: 100px;
+  position: absolute;
+  font-size: 11px;
+  top: 30px;
+  left: -40px;
+  padding: 5px 0;
+  text-align: center;
+  background: red;
+  color: white;
+  border-radius: 5px;
+  z-index: 100;
 }
