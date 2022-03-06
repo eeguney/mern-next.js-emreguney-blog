@@ -3,12 +3,12 @@ import Head from "next/head";
 import style from "../../styles/Admin.module.css";
 import Link from "next/link";
 import { Icon } from "../../components/UI/Icon";
-import { Main } from "../../components/tab/main/main";
-import { Pages } from "../../components/tab/pages/pages";
+import { Main } from "../../components/Admin/tab/main/main";
+import { Pages } from "../../components/Admin/tab/pages/pages";
 import { useDispatch } from "react-redux";
-import { Posts } from "../../components/tab/posts/posts";
-import { Categories } from "../../components/tab/categories/categories";
-import { Settings } from "../../components/tab/settings/settings";
+import { Posts } from "../../components/Admin/tab/posts/posts";
+import { Categories } from "../../components/Admin/tab/categories/categories";
+import { Settings } from "../../components/Admin/tab/settings/settings";
 import { setDarkMode } from "../../store/settingsSlice";
 
 export default function Admin({ posts }) {
