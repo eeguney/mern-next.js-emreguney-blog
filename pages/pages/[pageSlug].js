@@ -55,17 +55,8 @@ export default function SinglePage({ page }) {
   );
 }
 
-export const getStaticPaths = async () => {
-  const { data } = await getAllPages();
 
-  const paths = data.map((page) => ({
-    params: { pageSlug: page.slug },
-  }));
-
-  return { paths, fallback: false };
-};
-
-export const getStaticProps = async ({ params }) => {
+export const getServerSideProps = async ({ params }) => {
   try {
     const page = await getAPageBySlug(params.pageSlug);
     return {

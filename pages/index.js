@@ -25,7 +25,7 @@ export default function Home({ blogList }) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const response = await getAllPost();
 
   return {

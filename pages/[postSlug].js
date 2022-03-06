@@ -263,17 +263,8 @@ export default function SinglePost({ post, prev, next, commentCount }) {
   );
 }
 
-export const getStaticPaths = async () => {
-  const { data } = await getAllPost();
 
-  const paths = data.map((post) => ({
-    params: { postSlug: post.slug },
-  }));
-
-  return { paths, fallback: false };
-};
-
-export const getStaticProps = async ({ params }) => {
+export const getServerSideProps = async ({ params }) => {
   try {
     const post = await getAPostBySlug(params.postSlug);
     const commentCount = await getCountofComment(post.data._id);
