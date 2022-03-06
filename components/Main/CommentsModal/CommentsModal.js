@@ -109,15 +109,15 @@ export const CommentsModal = ({ postID }) => {
           <span>
             {comments.count === 1 ? (
               <>
-                There is <strong>1</strong> comment
+                <strong>1</strong> comment
               </>
             ) : comments.count > 1 ? (
               <>
-                There are <strong>{comments.count}</strong> comments
+                <strong>{comments.count}</strong> comments
               </>
             ) : (
               <>
-                There is <strong>no</strong> comment
+                <strong>No</strong> comment
               </>
             )}
           </span>

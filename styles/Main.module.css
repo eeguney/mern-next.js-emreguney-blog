@@ -283,7 +283,6 @@
 
 .singlePost .breadcrumb a:hover {
   color: #d11919;
-
 }
 
 .singlePost .breadcrumb span {
@@ -577,7 +576,7 @@
   .postContext .bookmark_card,
   .postContext .bookmark_card .thumbnail,
   .postContext .bookmark_card .thumbnail img {
-    border-radius: 5px;
+    border-radius: 15px;
   }
 
   .singlePost header h2 {
@@ -831,6 +830,12 @@
   font-weight: 200;
   font-size: 29px;
   margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .commentsSection label h3 {
+    font-size: 23px;
+  }
 }
 
 .commentsSection label .right {
@@ -1133,7 +1138,7 @@
 
 @media screen and (max-width: 1024px) {
   .fixedComments {
-    width: calc(100% - 50px);
+    width: 100%;
   }
 }
 
@@ -1223,7 +1228,7 @@
 @media screen and (max-width: 1024px) {
   .commentRow div {
     flex: 1;
-    width: initial!important;
+    width: initial !important;
   }
   .commentRow {
     flex-direction: column;
@@ -1356,4 +1361,3 @@
   right: 15px;
   top: 115px;
 }
-
