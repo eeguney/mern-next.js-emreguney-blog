@@ -12,6 +12,7 @@
     "@reduxjs/toolkit": "^1.7.2",
     "@tinymce/tinymce-react": "^3.13.1",
     "axios": "^0.26.0",
+    "cookie": "^0.4.2",
     "formidable": "^2.0.1",
     "formik": "^2.2.9",
     "html-react-parser": "^1.4.8",

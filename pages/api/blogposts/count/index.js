@@ -2,7 +2,7 @@ import dbConnect from "../../../../utils/mongo";
 import BlogPost from "../../../../models/BlogPost";
 
 export default async function handler(req, res) {
-  const { method, cookies } = req;
+  const { method } = req;
 
   dbConnect();
 
