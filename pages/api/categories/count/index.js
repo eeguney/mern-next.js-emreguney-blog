@@ -2,7 +2,7 @@ import dbConnect from "../../../../utils/mongo";
 import Category from "../../../../models/Category";
 
 export default async function handler(req, res) {
-  const { method, cookies } = req;
+  const { method } = req;
 
   dbConnect();
 
