@@ -80,7 +80,7 @@ export const Aside = ({ toggle }) => {
                 <span>{repo.stargazers_count}</span>
               </div>
               <div className={style.statisticItem}>
-                <label>Whatchers:</label>
+                <label>Watchers:</label>
                 <span>{repo.watchers_count}</span>
               </div>
               <div className={style.statisticItem}>

@@ -39,6 +39,7 @@
   .aside {
     width: calc(100% - 70px);
     transform: translateX(-100%);
+    padding: 25px 10px;
   }
 }
 
@@ -129,7 +130,7 @@
   text-align: center;
   font-size: 14px;
   color: #000000;
-  padding: 10px 0;
+  padding: 20px 0;
 }
 
 .gitHubCard footer {
@@ -147,6 +148,7 @@
   flex-direction: column;
   align-items: center;
   border-radius: 5px;
+  gap: 5px;
 }
 
 .gitHubCard .statisticsKey {
@@ -213,6 +215,12 @@
   box-shadow: 0px 0px 9px 3px rgb(0 0 0 / 21%);
   margin-bottom: 15px;
   width: fit-content;
+}
+
+@media screen and (max-width: 768px) {
+  .gitHubRepo .language {
+    margin-top: 15px;
+  }
 }
 
 .gitHubRepo .statistic {
