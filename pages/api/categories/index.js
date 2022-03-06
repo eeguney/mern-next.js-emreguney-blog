@@ -1,5 +1,5 @@
 import dbConnect from "../../../utils/mongo";
-import Category from "../../../models/Category";
+import Category from "../../../models/category";
 import slugger from "../../../utils/slugger";
 
 export default async function handler(req, res) {
