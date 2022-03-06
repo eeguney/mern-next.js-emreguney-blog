@@ -14,7 +14,6 @@ export default function SinglePage({ page }) {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(localStorage.getItem("darkmode"))
     if (localStorage.getItem("darkmode") === "true") {
       dispatch(setDarkMode(true));
     }

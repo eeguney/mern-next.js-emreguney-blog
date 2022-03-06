@@ -8,7 +8,6 @@ import { setDarkMode } from "../store/settingsSlice";
 export default function Home({ blogList }) {
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(localStorage.getItem("darkmode"))
     if (localStorage.getItem("darkmode") === "true") {
       dispatch(setDarkMode(true));
     }
@@ -26,19 +25,12 @@ export default function Home({ blogList }) {
   );
 }
 
-export const getStaticProps = async (ctx) => {
-  const myCookie = ctx.req?.cookies || "";
-  let admin = false;
-
-  if (myCookie.token === process.env.TOKEN) {
-    admin = true;
-  }
+export const getStaticProps = async () => {
   const response = await getAllPost();
 
   return {
     props: {
-      blogList: response.data.slice(0, 15),
-      admin,
+      blogList: response.data.slice(0, 15)
     },
   };
 };

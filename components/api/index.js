@@ -8,6 +8,7 @@ const API = axios.create({
 
 // get
 export const getAllPost = () => API.get('/blogposts');
+export const getPostsByCategory = (categorySlug, count) => API.get('/blogposts/category/'+categorySlug, count);
 export const getGitHub = () => API.get('https://api.github.com/users/'+GITHUB_USERNAME);
 export const getAPostBySlug = (slug) => API.get('/blogposts/'+slug);
 export const getAllPages = () => API.get('/pages');

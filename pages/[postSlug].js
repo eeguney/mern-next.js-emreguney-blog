@@ -101,7 +101,7 @@ export default function SinglePost({ post, prev, next, commentCount }) {
                 <span>
                   <Icon.RightArrow size="19" />
                 </span>
-                <Link href="">
+                <Link href={`/category/${post.category}`}>
                   <a>{post.category ? post.category : "Uncategorized"}</a>
                 </Link>
               </div>

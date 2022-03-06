@@ -19,7 +19,7 @@ export default function Page({ blogList, gitHub, totalCount }) {
   return (
     <>
       <Head>
-        <title>Page 2 - Emre Güney Personal Blog</title>
+        <title>Page {router.query.page} - Emre Güney Personal Blog</title>
         <meta name="description" content="Frontend developer" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
