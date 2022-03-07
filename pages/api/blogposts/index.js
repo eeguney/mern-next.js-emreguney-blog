@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   if (method === "GET") {
     try {
       const posts = await BlogPost.find();
-      console.log(posts)
+      console.log(posts.data)
       res.status(200).json(posts);
     } catch (err) {
       res.status(500).json(err);
