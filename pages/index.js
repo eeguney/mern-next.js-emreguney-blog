@@ -27,7 +27,7 @@ export default function Home({ blogList }) {
 
 export const getServerSideProps = async () => {
   const response = await getAllPost();
-
+  console.log("dene")
   return {
     props: {
       blogList: response.data.slice(0, 15)
