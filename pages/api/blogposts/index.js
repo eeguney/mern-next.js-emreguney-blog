@@ -10,9 +10,9 @@ export default async function handler(req, res) {
   dbConnect();
 
   if (method === "GET") {
-    console.log("dene in blogposts")
     try {
       const posts = await BlogPost.find();
+      console.log(posts)
       res.status(200).json(posts);
     } catch (err) {
       res.status(500).json(err);
