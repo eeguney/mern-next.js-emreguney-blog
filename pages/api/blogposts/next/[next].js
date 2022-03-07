@@ -1,5 +1,22 @@
 import dbConnect from "../../../../utils/mongo";
 import BlogPost from "../../../../models/BlogPost";
+import Cors from 'cors'
+
+const cors = Cors({
+  methods: ['GET', 'HEAD'],
+})
+
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+
+      return resolve(result)
+    })
+  })
+}
 
 export default async function handler(req, res) {
   const {
@@ -11,6 +28,7 @@ export default async function handler(req, res) {
 
   if (method === "GET") {
     try {
+      await runMiddleware(req, res, cors)
       const nextPost = await BlogPost.find({ _id: { $gt: next } })
         .sort({ _id: 1 })
         .limit(1);

@@ -2,6 +2,23 @@ import dbConnect from "../../../utils/mongo";
 import Comment from "../../../models/Comment";
 import BlogPost from "../../../models/BlogPost";
 import mongoose from "mongoose";
+import Cors from 'cors'
+
+const cors = Cors({
+  methods: ['GET', 'HEAD'],
+})
+
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+
+      return resolve(result)
+    })
+  })
+}
 
 export default async function handler(req, res) {
   const {
@@ -15,6 +32,7 @@ export default async function handler(req, res) {
   dbConnect();
 
   if (method === "GET") {
+    await runMiddleware(req, res, cors)
     try {
       const comments = await Comment.find({ postID });
       res.status(200).json(comments);
