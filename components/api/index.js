@@ -2,7 +2,7 @@ import axios from "axios"
 import { SITE_ADRESS, GITHUB_USERNAME } from "../../constants/constants";
 
 const API = axios.create({
-  baseURL: `/api/`,
+  baseURL: `${SITE_ADRESS}/api/`,
   withCredentials: false
 });
 
