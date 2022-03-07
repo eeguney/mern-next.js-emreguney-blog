@@ -10,7 +10,6 @@ import {
 import style from "../../../styles/Main.module.css";
 import { addComment, fetchCommentByPostID } from "../../api";
 import { Icon } from "../../UI/Icon";
-import Fade from "react-reveal/Fade";
 import { useRouter } from "next/router";
 import { CommentsForm } from "./CommentsForm";
 import dateShow from "../../../utils/dateShow";
