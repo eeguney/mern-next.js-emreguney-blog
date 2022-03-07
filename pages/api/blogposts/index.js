@@ -12,8 +12,11 @@ export default async function handler(req, res) {
   if (method === "GET") {
     try {
       const posts = await BlogPost.find();
-      console.log(posts.data)
-      res.status(200).json(posts);
+      if(posts) {
+        res.status(200).json(posts);
+      } else {
+        res.status(200).json({})
+      }
     } catch (err) {
       res.status(500).json(err);
     }
