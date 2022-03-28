@@ -37,7 +37,9 @@ export const getServerSideProps = async ({ query }) => {
   try {
     const response = await getAllPost();
     const gitHub = await getGitHub();
+    console.log(gitHub)
     const totalCount = await getCountofPosts();
+
     return {
       props: {
         blogList: response.data.slice(

@@ -30,10 +30,14 @@ export default function CategoryPage({ blogList }) {
 
 
 export const getServerSideProps = async ({ query }) => {
-  const response = await getPostsByCategory(query.categorySlug);
+  try {
+    const response = await getPostsByCategory(query.categorySlug);
   return {
     props: {
       blogList: response.data,
     },
   };
+  } catch (error) {
+    console.log(error)
+  }
 };
