@@ -1,0 +1,37 @@
+{
+  "name": "next-emreguney-blog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.7.2",
+    "@tinymce/tinymce-react": "^3.13.1",
+    "axios": "^0.26.0",
+    "cookie": "^0.4.2",
+    "cors": "^2.8.5",
+    "formidable": "^2.0.1",
+    "formik": "^2.2.9",
+    "html-react-parser": "^1.4.8",
+    "mongoose": "^6.2.2",
+    "mv": "^2.1.1",
+    "next": "latest",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-redux": "^7.2.6",
+    "react-responsive-masonry": "^2.1.4",
+    "react-reveal": "^1.2.2",
+    "redux": "^4.1.2",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.5.4",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.10.0",
+    "eslint-config-next": "12.1.0"
+  }
+}

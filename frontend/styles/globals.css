@@ -1,0 +1,384 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  scroll-behavior: smooth;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+button,
+a {
+  transition: all 0.2s linear;
+  cursor: pointer;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+.site-layout::-webkit-scrollbar {
+  display: none;
+}
+
+.likeRipple {
+  position: relative;
+}
+
+.likeRipple:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s linear;
+  box-shadow: 0 0 7px 40px rgba(0, 0, 0, 0.322);
+}
+
+.likeRipple:active:after {
+  box-shadow: 0 0 0 0 white;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  transition: 0s;
+}
+
+.page-container {
+  transform: translateX(0px) translateY(0px);
+  transition: all 0.2s ease;
+}
+
+.page-container.searchIsOpen {
+  transform: translateY(100px);
+}
+
+.pageContainerIsOpen header {
+  width: calc(100% - 400px) !important;
+  transform: translateX(400px);
+}
+
+.pageContainerIsOpen article header {
+  width: initial !important;
+  transform: translateX(0);
+}
+
+@media screen and (min-width: 1280px) {
+}
+
+@media screen and (max-width: 768px) {
+  .pageContainerIsOpen header {
+    width: inherit !important;
+    transform: translateX(0);
+    overflow: hidden;
+  }
+  .pageContainerIsOpen header nav {
+    transform: translateX(calc(100% - 35px));
+  }
+}
+
+.drawerIsOpen {
+  opacity: 1 !important;
+  transform: translateX(0px) !important;
+}
+
+.search-area {
+  position: fixed;
+  left: 0;
+  border-bottom: 3px solid #f5f5f5;
+  right: 0;
+  width: 100%;
+  z-index: 889;
+  top: 0;
+  padding: 0 40px;
+  align-items: center;
+  display: flex;
+  height: 100px;
+  opacity: 0;
+  transform: translateY(-100px);
+  transition: all 0.2s linear;
+}
+.search-area.open {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: all 0.2s linear;
+}
+.search-area input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0 55px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #181818;
+}
+.search-area input::placeholder {
+  color: rgb(110, 110, 110);
+}
+
+.search-area label {
+  font-weight: 700;
+  font-size: 30px;
+  color: #e7e7e7;
+  margin-top: -5px;
+}
+
+@media screen and (max-width: 1024px) {
+  .search-area {
+    padding: 0 15px;
+  }
+  .search-area input {
+    padding: 0 10px;
+  }
+  .search-area label {
+    display: none;
+  }
+}
+
+.hoverGoTop-sm,
+.hoverGoTop {
+  transition: all 0.3s ease;
+}
+
+.hoverGoTop-sm:hover {
+  transform: translateY(-5px);
+}
+
+.hoverGoTop:hover {
+  transform: translateY(-10px);
+}
+
+.githubCard {
+  display: flex;
+}
+
+.card.dark {
+  width: 100%;
+}
+
+.fadeInAndScale {
+  animation: fadeInAndScale 0.5s ease forwards;
+  position: relative;
+  z-index: 999;
+}
+
+@keyframes fadeInAndScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fadeOutAndScale {
+  animation: fadeOutAndScale 0.5s ease forwards;
+  position: relative;
+  z-index: 999;
+}
+
+@keyframes fadeOutAndScale {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+.reading-percentage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  background: #2196f3;
+  z-index: 9999999;
+  height: 5px;
+  border-radius: 999px;
+  box-shadow: 5px 0px 21px 7px #2196f340;
+  transition: all 0.4s ease;
+}
+
+.DraftEditor-root {
+  height: 300px !important;
+}
+
+.tox-notifications-container {
+  display: none;
+}
+
+/* darkmode */
+
+.darkmode {
+  transition: all 0.4s ease;
+  transition: border-color 0s;
+}
+
+.darkmode,
+.darkmode .Aside_aside__z5Sce,
+.darkmode .Aside_gitHubCard__EqKxw .Aside_cover__Gsy9f,
+.darkmode .Aside_aside__z5Sce::-webkit-scrollbar-track {
+  background: #0d1727;
+}
+
+.darkmode #Header_header__VYZ3G {
+  background: #00000000;
+}
+
+.darkmode #Header_header__VYZ3G button,
+.darkmode .Main_postShare__EQawM .Main_items__zSGkE .Main_item__JARc6,
+.darkmode .Main_nextPrev__ARp2B .Main_prev__RaKbv label svg,
+.darkmode .Main_nextPrev__ARp2B .Main_next__dpc4g label svg,
+.darkmode .Main_singlePost__KeyJl .Main_breadcrumb__0klJ2,
+.darkmode .Main_aboutMe__kY039, .darkmode .Card_card__QH1mK .Card_date__1PlZi {
+  fill: white;
+}
+
+.darkmode .Header_menuButton__aP6zE span {
+  background: white;
+}
+
+.darkmode .Main_singlePost__KeyJl header h2,
+.darkmode .Main_singlePost__KeyJl .Main_postDescItem__JSs_U label,
+.darkmode .Main_postContextWrapper__5UYyb,
+.darkmode .Main_singlePost__KeyJl .Main_breadcrumb__0klJ2,
+.darkmode .Main_aboutMe__kY039,
+.darkmode .Card_card__QH1mK article,
+.darkmode .Card_card__QH1mK header span,
+.darkmode .pagination_pagination__0urRr,
+.darkmode .Main_commentsSection__t28qN .Main_addComment__pElx0 input, .darkmode .Main_commentsSection__t28qN .Main_addComment__pElx0 textarea {
+  color: white;
+}
+
+.darkmode .Main_addComment__pElx0 textarea,
+.darkmode .Aside_gitHubRepo__M57rm .Aside_repoItem__122rv,
+.darkmode .Main_commentRow__P67gt input,
+.darkmode .Card_card__QH1mK header span,
+.darkmode .Main_dropdownImage__FbSxS button:hover,
+.darkmode .search-area, .darkmode .Main_dropdownImage__FbSxS .Main_imageArea__l4_am input, .darkmode .Main_commentWithParent__IlY_0 textarea{
+  background: #07101d;
+  border-color: #07101d;
+}
+
+.darkmode .Main_addComment__pElx0 .Main_submitComment__MdogL,
+.darkmode .Aside_gitHubCard__EqKxw,
+.darkmode .Card_card__QH1mK article,
+.darkmode .search-area input {
+  background: #07101d;
+}
+
+.darkmode .Main_postContextWrapper__5UYyb,
+.darkmode .Card_card__QH1mK .Card_bottom__wVoWZ,
+.darkmode .Card_card__QH1mK .Card_seeAll__erpo9,
+.darkmode .Aside_gitHubRepo__M57rm .Aside_repoItem__122rv header {
+  border-color: #07101d;
+}
+
+.darkmode .Aside_aside__z5Sce .Aside_widget___YUdM label,
+.darkmode .Aside_gitHubCard__EqKxw .Aside_userInfo__CDyZu h3,
+.darkmode .Aside_gitHubCard__EqKxw .Aside_userInfo__CDyZu p,
+.darkmode .Aside_gitHubCard__EqKxw .Aside_statistic__o2W_A,
+.darkmode .Aside_gitHubCard__EqKxw .Aside_statistic__o2W_A span,
+.darkmode .Aside_gitHubRepo__M57rm .Aside_repoName__W3MT5,
+.darkmode .Aside_gitHubRepo__M57rm .Aside_repoDesc__dlL7C,
+.darkmode .Main_container__iNGdd .Main_title__1mWSU h3,
+.darkmode .Card_card__QH1mK .Card_date__1PlZi {
+  color: white !important;
+}
+
+.darkmode .Main_fixedComments__zApGs {
+  background: #ffffff12;
+  color: white;
+}
+
+.darkmode .Main_dropdownImage__FbSxS button {
+  background: #07101d;
+  border-color: #07101d;
+  color: white;
+  fill: white;
+}
+
+.darkmode .Main_container__iNGdd .Main_title__1mWSU .Main_seeAll__KRlnP {
+  fill: #2196f3 !important;
+}
+
+.darkmode .Aside_aside__z5Sce::-webkit-scrollbar-thumb {
+  background: #2196f3;
+}
+
+.darkmode .Main_fastLinks__xJOSZ:after {
+  background: #ffffff0d;
+}
+
+.darkmode .Card_card__QH1mK .Card_seeAll__erpo9 {
+  border: 1px solid #1976d2;
+  box-shadow: 0px 0px 27px 7px rgb(33 149 243 / 8%);
+}
+
+.darkmode .Card_card__QH1mK .Card_seeAll__erpo9:hover {
+  background-color: #1976d2;
+  color: white;
+  box-shadow: 0px 0px 17px 10px rgb(57 146 233 / 31%);
+  border: 1px solid transparent;
+}
+
+.darkmode .Card_card__QH1mK header span:hover,
+.darkmode .Main_socialLinks__kWck2 a::after, .darkmode .Main_commentsSection__t28qN .Main_seeAllComments__XG3LM {
+  background-color: #1976d2;
+  color: white;
+}
+
+.darkmode .Main_prev__RaKbv .Main_content__NBvGt h3,
+.darkmode .Main_prev__RaKbv .Main_content__NBvGt:hover h3,
+.darkmode .Main_next__dpc4g .Main_content__NBvGt:hover h3, .darkmode .Main_prev__RaKbv .Main_content__NBvGt h3, .darkmode .Main_next__dpc4g .Main_content__NBvGt h3 {
+  text-decoration: none;
+}
+
+.darkmode .Main_comments__F0Gk1 ul li .Main_comment__pd96r p {
+  background: linear-gradient(145deg, #495464, #07101d);
+  box-shadow: 20px 20px 60px #00000052, -20px -20px 60px #00000017;
+}
+
+.darkmode .Main_comments__F0Gk1 ul li .Main_userInfo__SgF5R img {
+  background: linear-gradient(145deg, #495464, #07101d);
+  box-shadow: 20px 20px 60px #00000052, -20px -20px 60px #00000017;
+}
+
+.darkmode .Main_comments__F0Gk1 ul li .Main_comment__pd96r .Main_meta__RrnVB {
+  color: white!important;
+  fill: white!important
+}

@@ -1,0 +1,250 @@
+.aside {
+  width: 400px;
+  position: fixed;
+  left: 0;
+  padding: 25px;
+  top: 0;
+  background: #ffffff;
+  height: 100%;
+  opacity: 0;
+  transform: translateX(-400px);
+  transition: all 0.2s ease;
+  overflow: scroll;
+  z-index: 999;
+  box-shadow: 0px 0px 40px -3px rgb(0 0 0 / 25%);
+}
+
+.aside * {
+  scrollbar-width: auto;
+  scrollbar-color: #dbdbdb #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+.aside::-webkit-scrollbar {
+  width: 5px;
+}
+
+.aside::-webkit-scrollbar-track {
+  background: #ffffff;
+  margin: 10px;
+}
+
+.aside::-webkit-scrollbar-thumb {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  border: 0px solid #ffffff;
+}
+
+@media screen and (max-width: 768px) {
+  .aside {
+    width: calc(100% - 70px);
+    transform: translateX(-100%);
+    padding: 25px 10px;
+  }
+}
+
+.aside .widget {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.aside .widget label {
+  font-weight: 200;
+  font-size: 22px;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.gitHubCard {
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  background: white;
+}
+
+.gitHubCard header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.gitHubCard .cover {
+  width: 100%;
+  height: 110px;
+  background: black;
+  border-radius: 10px 10px 0 0;
+}
+
+.gitHubCard .avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  position: absolute;
+  top: 50px;
+}
+
+.gitHubCard .avatar img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+  border-radius: 999px;
+}
+
+.gitHubCard .userInfo {
+  padding: 105px 20px 0px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.gitHubCard .gitHubIcon {
+  justify-content: center;
+  display: flex;
+}
+
+.gitHubCard .gitHubIcon svg {
+  fill: #cdcdcd;
+  transition: all 0.1s linear;
+}
+
+.gitHubCard .gitHubIcon svg:hover {
+  fill: #c9510c;
+}
+
+.gitHubCard .userInfo h3 {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin: 10px 0 4px 0;
+}
+
+.gitHubCard .userInfo .userTag {
+  text-align: center;
+  color: #2196f3;
+  font-weight: 600;
+}
+
+.gitHubCard .userInfo p {
+  text-align: center;
+  font-size: 14px;
+  color: #000000;
+  padding: 20px 0;
+}
+
+.gitHubCard footer {
+  padding: 0 20px 20px 20px;
+}
+
+.gitHubCard .repoStatistics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.gitHubCard .statistic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  gap: 5px;
+}
+
+.gitHubCard .statisticsKey {
+  margin-bottom: 0px !important;
+  font-size: 13px !important;
+  color: #000000ad !important;
+  font-weight: 400 !important;
+}
+
+.gitHubCard .statisticsValue {
+  font-weight: 700;
+  color: black;
+  font-size: 25px;
+  line-height: 35px;
+  padding-bottom: 1px;
+}
+
+.gitHubRepo {
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.gitHubRepo .repoItem {
+  border: 1px solid #e3e3e3;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px;
+  background: white;
+  margin-bottom: 15px;
+  transition: all 0.2s linear;
+}
+
+.gitHubRepo .repoItem:hover {
+  transform: translateY(-3px);
+}
+
+.gitHubRepo .repoItem header {
+  font-size: 15px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+}
+
+.gitHubRepo .repoName {
+  margin: 0;
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+
+.gitHubRepo .repoDesc {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.gitHubRepo .language {
+  padding: 3px 7px;
+  background: #5819d1;
+  color: white;
+  font-weight: 600;
+  font-size: 12px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 9px 3px rgb(0 0 0 / 21%);
+  margin-bottom: 15px;
+  width: fit-content;
+}
+
+@media screen and (max-width: 768px) {
+  .gitHubRepo .language {
+    margin-top: 15px;
+  }
+}
+
+.gitHubRepo .statistic {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  padding-bottom: 0;
+}
+
+.gitHubRepo .statisticItem {
+  display: flex;
+  align-items: center;
+}
+
+.gitHubRepo .statisticItem label {
+  font-size: 16px;
+  margin-bottom: 0;
+  margin-right: 10px;
+  color: black;
+}
+
+.gitHubRepo .statisticItem span {
+  font-weight: 600;
+  font-size: 18px;
+  color: #008eff;
+}
+

@@ -1,0 +1,1 @@
+{"c":["webpack"],"r":["pages/[postSlug]"],"m":["./components/Main/ScrollFetch/ScrollFetch.js","./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F%5BpostSlug%5D&absolutePagePath=%2Fhome%2Femre%2FRepositories%2Fmern-next.js-emreguney-blog%2Fpages%2F%5BpostSlug%5D.js!","./pages/[postSlug].js"]}
